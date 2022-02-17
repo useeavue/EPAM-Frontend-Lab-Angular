@@ -12,6 +12,8 @@
 /build
 
 # misc
+.angular
+.vscode
 .DS_Store
 .env.local
 .env.development.local
