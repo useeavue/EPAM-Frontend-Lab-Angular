@@ -2,14 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
-import { LogoComponent } from './logo/logo.component';
-import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
-import { InputSectionComponent } from './input-section/input-section.component';
-import { CoursesListComponent } from './courses-list/courses-list.component';
-import { CourseItemComponent } from './course-item/course-item.component';
-import { CoursesPageComponent } from './courses-page/courses-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { LogoComponent } from './components/logo/logo.component';
+import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.component';
+import { InputSectionComponent } from './components/input-section/input-section.component';
+import { CoursesListComponent } from './components/courses-list/courses-list.component';
+import { CourseItemComponent } from './components/course-item/course-item.component';
+import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 
 @NgModule({
   declarations: [
@@ -21,12 +21,10 @@ import { CoursesPageComponent } from './courses-page/courses-page.component';
     InputSectionComponent,
     CoursesListComponent,
     CourseItemComponent,
-    CoursesPageComponent
+    CoursesPageComponent,
   ],
-  imports: [
-    BrowserModule
-  ],
+  imports: [BrowserModule],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
