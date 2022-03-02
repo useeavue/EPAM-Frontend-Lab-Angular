@@ -1,0 +1,9 @@
+.logo {
+  height: 80px;
+  transition: all 0.3s ease-in;
+  cursor: pointer;
+  &:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+  }
+}
