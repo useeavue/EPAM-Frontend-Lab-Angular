@@ -1,1 +1,73 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500&display=swap");
+
+* {
+  box-sizing: border-box;
+  font-family: "Ubuntu", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-size: 14px;
+  color: #333;
+}
+
+app-root {
+  background-color: rgb(240, 240, 240);
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.btn {
+  height: 30px;
+  padding: 0 10px;
+  cursor: pointer;
+  background-color: #316dca;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #4184e4;
+  }
+}
+
+.btn-red {
+  background-color: #e5534b;
+  &:hover {
+    background-color: #d6372f;
+  }
+}
+
+.flex-center-gap-20 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 20px;
+}
+
+.flex-center-sb {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.flex-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.flex-column-gap-20 {
+  display: flex;
+  flex-direction: column;
+  row-gap: 20px;
+}
+
+.container {
+  width: 1300px;
+}
