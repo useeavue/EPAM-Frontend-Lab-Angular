@@ -2,22 +2,21 @@
   <div class="container flex-center-gap-20 course-card-item">
     <div class="content flex-column-gap-20">
       <div class="content-heading flex-center-sb">
-        <h2 class="content-name">Video Course</h2>
+        <h2 class="content-name">{{ course.title }} {{ course.id }}</h2>
         <div class="content-info flex-center-gap-20">
-          <h2 class="content-duration">1h 22min</h2>
-          <h2 class="content-date">06.10.2017</h2>
+          <h2 class="content-duration">{{ course.duration }}</h2>
+          <h2 class="content-date">{{ course.creationDate }}</h2>
         </div>
       </div>
       <p class="content-text">
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsa
-        unde a exercitationem voluptatibus labore fugiat autem ullam, atque
-        provident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihil
-        quisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!
+        {{ course.description }}
       </p>
     </div>
     <div class="btn-container flex-column-gap-20">
       <button class="btn">&#x2705; Edit</button>
-      <button class="btn btn-red">&#x274E; Delete</button>
+      <button class="btn btn-red" (click)="clickHandler(course.id)">
+        &#x274E; Delete
+      </button>
     </div>
   </div>
 </div>
