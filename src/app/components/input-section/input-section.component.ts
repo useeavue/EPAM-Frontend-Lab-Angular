@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-input-section',
@@ -12,7 +12,10 @@ export class InputSectionComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  @Output()
+  public inputValueEvent = new EventEmitter<string>();
+
   public inputHandler(value: string): void {
-    console.log(value);
+    this.inputValueEvent.emit(value);
   }
 }

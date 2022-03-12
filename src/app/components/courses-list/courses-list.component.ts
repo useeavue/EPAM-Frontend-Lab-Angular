@@ -17,10 +17,10 @@ export class CoursesListComponent implements OnInit {
   }
 
   @Output()
-  public btnClicked = new EventEmitter<number>();
+  public btnCloseClicked = new EventEmitter<number>();
 
   public eventHandler(clicked: number): void {
-    this.btnClicked.emit(clicked);
+    this.btnCloseClicked.emit(clicked);
   }
 
   ngOnInit(): void {}

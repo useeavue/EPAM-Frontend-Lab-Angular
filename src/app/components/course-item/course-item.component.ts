@@ -11,12 +11,18 @@ export class CourseItemComponent implements OnInit {
   public course: ICourse = {
     id: 0,
     title: '',
-    creationDate: '',
-    duration: '',
+    creationDate: 0,
+    duration: 0,
     description: '',
   };
 
+  public topRated: boolean = false;
+
   constructor() {}
+
+  public topRatedHandle(): void {
+    this.topRated = !this.topRated;
+  }
 
   @Output()
   public onClickEvent = new EventEmitter<number>();
