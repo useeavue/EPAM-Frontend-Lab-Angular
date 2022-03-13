@@ -5,49 +5,49 @@ export const users: IUser[] = [];
 export const usersCourse: ICourse[] = [
   {
     id: 1,
-    title: 'Video Course',
-    creationDate: '06.10.2017',
-    duration: '1h 22min',
-    description:
-      'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
-  },
-  {
-    id: 2,
-    title: 'Video Course',
-    creationDate: '09.10.2018',
-    duration: '4h 11min',
+    title: 'video course',
+    creationDate: Date.parse('Nov 10, 2022'),
+    duration: 82,
     description:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
   },
   {
     id: 3,
-    title: 'Video Course',
-    creationDate: '06.11.2019',
-    duration: '5h 54min',
+    title: 'video course',
+    creationDate: Date.parse('Mar 1, 2022'),
+    duration: 94,
     description:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
   },
   {
-    id: 4,
-    title: 'Video Course',
-    creationDate: '07.01.2016',
-    duration: '15min',
-    description:
-      'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
-  },
-  {
-    id: 5,
-    title: 'Video Course',
-    creationDate: '10.10.2010',
-    duration: '3h 21min',
+    id: 2,
+    title: 'video course',
+    creationDate: Date.parse('Mar 11, 2022'),
+    duration: 119,
     description:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
   },
   {
     id: 6,
-    title: 'Video Course',
-    creationDate: '01.08.2008',
-    duration: '2h 22min',
+    title: 'video course',
+    creationDate: Date.parse('Dec 17, 2009'),
+    duration: 15,
+    description:
+      'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+  },
+  {
+    id: 5,
+    title: 'video course',
+    creationDate: Date.parse('Oct 10, 2011'),
+    duration: 60,
+    description:
+      'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+  },
+  {
+    id: 4,
+    title: 'video course',
+    creationDate: Date.parse('Sep 3, 2017'),
+    duration: 120,
     description:
       'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
   },

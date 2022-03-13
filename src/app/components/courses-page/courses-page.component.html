@@ -1,5 +1,7 @@
-<app-input-section></app-input-section>
+<app-input-section
+  (inputValueEvent)="changeSearchString($event)"
+></app-input-section>
 <app-courses-list
-  [courses]="courses"
-  (btnClicked)="btnEventHandler($event)"
+  [courses]="filterCourses()"
+  (btnCloseClicked)="btnCloseEventHandler($event)"
 ></app-courses-list>

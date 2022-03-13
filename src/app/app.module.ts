@@ -10,7 +10,10 @@ import { BreadcrumbsComponent } from './components/breadcrumbs/breadcrumbs.compo
 import { InputSectionComponent } from './components/input-section/input-section.component';
 import { CoursesListComponent } from './components/courses-list/courses-list.component';
 import { CourseItemComponent } from './components/course-item/course-item.component';
+import { CourseItemBorderDirective } from './directives/course-item-border.directive';
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
+import { OrderByPipe } from './pipes/order-by.pipe';
+import { DurationPipe } from './pipes/duration.pipe';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { CoursesPageComponent } from './components/courses-page/courses-page.com
     InputSectionComponent,
     CoursesListComponent,
     CourseItemComponent,
+    CourseItemBorderDirective,
     CoursesPageComponent,
+    OrderByPipe,
+    DurationPipe,
   ],
   imports: [BrowserModule, FormsModule],
   providers: [],

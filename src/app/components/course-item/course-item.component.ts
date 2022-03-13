@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ICourse } from 'src/app/types/ICourse';
 
 @Component({
@@ -6,23 +6,25 @@ import { ICourse } from 'src/app/types/ICourse';
   templateUrl: './course-item.component.html',
   styleUrls: ['./course-item.component.scss'],
 })
-export class CourseItemComponent implements OnInit {
+export class CourseItemComponent {
   @Input()
   public course: ICourse = {
     id: 0,
     title: '',
-    creationDate: '',
-    duration: '',
+    creationDate: 0,
+    duration: 0,
     description: '',
   };
 
-  constructor() {}
+  public topRated: boolean = false;
+
+  public topRatedHandle(): void {
+    this.topRated = !this.topRated;
+  }
 
   @Output()
   public onClickEvent = new EventEmitter<number>();
   public clickHandler(clicked: number): void {
     this.onClickEvent.emit(clicked);
   }
-
-  ngOnInit(): void {}
 }
