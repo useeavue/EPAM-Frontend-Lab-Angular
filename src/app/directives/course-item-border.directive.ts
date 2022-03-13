@@ -1,4 +1,5 @@
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import * as numbers from '../common/numbers';
 
 @Directive({
   selector: '[course-item-border]',
@@ -6,8 +7,14 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 export class CourseItemBorderDirective implements OnInit {
   @Input('course-item-border')
   public creationDate: number = 0;
+
   private currentDate: number = Date.now();
-  private fourteenDays: number = 1000 * 60 * 60 * 24 * 14;
+  private fourteenDays: number =
+    numbers.MILLESECONDS_IN_SECOND *
+    numbers.SECONDS_IN_MINUTE *
+    numbers.MINUTES_IN_HOUR *
+    numbers.HOURS_IN_DAY *
+    (numbers.DAYS_IN_WEEK * 2);
 
   constructor(private element: ElementRef) {}
 
@@ -21,9 +28,6 @@ export class CourseItemBorderDirective implements OnInit {
     if (this.creationDate > this.currentDate) {
       this.changeBorderColor('blue');
     }
-    console.log(this.element);
-    console.log(this.creationDate);
-    console.log(this.currentDate);
   }
 
   private changeBorderColor(color: string) {

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ICourse } from 'src/app/types/ICourse';
 
 @Component({
@@ -6,7 +6,7 @@ import { ICourse } from 'src/app/types/ICourse';
   templateUrl: './course-item.component.html',
   styleUrls: ['./course-item.component.scss'],
 })
-export class CourseItemComponent implements OnInit {
+export class CourseItemComponent {
   @Input()
   public course: ICourse = {
     id: 0,
@@ -18,8 +18,6 @@ export class CourseItemComponent implements OnInit {
 
   public topRated: boolean = false;
 
-  constructor() {}
-
   public topRatedHandle(): void {
     this.topRated = !this.topRated;
   }
@@ -29,6 +27,4 @@ export class CourseItemComponent implements OnInit {
   public clickHandler(clicked: number): void {
     this.onClickEvent.emit(clicked);
   }
-
-  ngOnInit(): void {}
 }

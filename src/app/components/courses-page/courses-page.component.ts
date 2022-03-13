@@ -11,8 +11,6 @@ export class CoursesPageComponent implements OnInit {
   public courses: ICourse[] = [];
   public searchString: string = '';
 
-  constructor() {}
-
   ngOnInit(): void {
     this.courses = usersCourse;
   }
