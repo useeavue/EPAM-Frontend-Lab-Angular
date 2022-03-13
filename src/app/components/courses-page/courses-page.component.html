@@ -1,1 +1,5 @@
-<p>courses-page works!</p>
+<app-input-section></app-input-section>
+<app-courses-list
+  [courses]="courses"
+  (btnClicked)="btnEventHandler($event)"
+></app-courses-list>

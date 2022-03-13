@@ -1,0 +1,14 @@
+app-footer {
+  position: sticky;
+  bottom: 0;
+  flex-shrink: 0;
+}
+
+app-header {
+  flex-shrink: 0;
+  z-index: 1;
+}
+
+.page-body {
+  flex-grow: 1;
+}
