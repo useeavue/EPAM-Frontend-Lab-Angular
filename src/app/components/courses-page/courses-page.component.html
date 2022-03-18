@@ -1,3 +1,8 @@
+<app-modal-window
+  *ngIf="modal"
+  (close)="modal = false"
+  (confirm)="deleteCourse()"
+></app-modal-window>
 <app-input-section
   (inputValueEvent)="changeSearchString($event)"
 ></app-input-section>
