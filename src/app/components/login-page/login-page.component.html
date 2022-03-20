@@ -1,1 +1,27 @@
-<p>login-page works!</p>
+<div class="login-window">
+  <h1>Login</h1>
+  <form action="GET" accept-charset="utf-8">
+    <p *ngIf="errMessage">Wrong username or password!</p>
+    <label for="userName">Username:</label>
+    <input
+      [(ngModel)]="userNameInput"
+      type="text"
+      id="userName"
+      name="userName"
+      placeholder="Please enter username"
+      required
+    />
+    <label for="userPassword">Password:</label>
+    <input
+      [(ngModel)]="userPasswordInput"
+      type="text"
+      id="userPassword"
+      name="userPassword"
+      placeholder="Please enter password"
+      required
+    />
+    <button class="btn" (click)="logIn(userNameInput, userPasswordInput)">
+      Sign in
+    </button>
+  </form>
+</div>
