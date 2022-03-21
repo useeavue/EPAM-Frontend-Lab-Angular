@@ -14,6 +14,11 @@ import { CourseItemBorderDirective } from './directives/course-item-border.direc
 import { CoursesPageComponent } from './components/courses-page/courses-page.component';
 import { OrderByPipe } from './pipes/order-by.pipe';
 import { DurationPipe } from './pipes/duration.pipe';
+import { LoginPageComponent } from './components/login-page/login-page.component';
+import { ModalWindowComponent } from './components/modal-window/modal-window.component';
+import { CoursesDataService } from './services/courses-data.service';
+import { UsersDataService } from './services/users-data.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -29,9 +34,11 @@ import { DurationPipe } from './pipes/duration.pipe';
     CoursesPageComponent,
     OrderByPipe,
     DurationPipe,
+    LoginPageComponent,
+    ModalWindowComponent,
   ],
   imports: [BrowserModule, FormsModule],
-  providers: [],
+  providers: [CoursesDataService, UsersDataService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

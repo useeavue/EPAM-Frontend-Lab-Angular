@@ -10,14 +10,10 @@
             {{ course.title | titlecase }} {{ course.id }}
           </h2>
           <div (click)="topRatedHandle()">
-            <span
-              class="content-top-rated"
-              [ngClass]="{ active: topRated === false }"
+            <span class="content-top-rated" [ngClass]="{ active: !topRated }"
               >&#9734;</span
             >
-            <span
-              class="content-top-rated"
-              [ngClass]="{ active: topRated === true }"
+            <span class="content-top-rated" [ngClass]="{ active: topRated }"
               >&#9733;</span
             >
           </div>

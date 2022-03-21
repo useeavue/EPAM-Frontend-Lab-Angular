@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { usersCourse } from 'src/app/common/mock-users';
+import { Component, HostListener, OnInit } from '@angular/core';
+import { CoursesDataService } from 'src/app/services/courses-data.service';
 import { ICourse } from 'src/app/types/ICourse';
 
 @Component({
@@ -10,23 +10,30 @@ import { ICourse } from 'src/app/types/ICourse';
 export class CoursesPageComponent implements OnInit {
   public courses: ICourse[] = [];
   public searchString: string = '';
+  public courseId: number = 0;
+  public modal: boolean = false;
+
+  constructor(public coursesData: CoursesDataService) {}
 
   ngOnInit(): void {
-    this.courses = usersCourse;
+    this.getCourses();
   }
 
-  public filterCourses(): ICourse[] {
-    return this.courses.filter(
-      (course) =>
-        course.title.indexOf(this.searchString.toLowerCase().trim()) > -1
-    );
+  private getCourses(): void {
+    this.courses = this.coursesData.getList();
   }
 
   public changeSearchString(inputValue: string): void {
     this.searchString = inputValue;
   }
 
+  public closeModalRefreshView(): void {
+    this.getCourses();
+    this.modal = false;
+  }
+
   public btnCloseEventHandler(clickedId: number): void {
-    console.log(clickedId);
+    this.courseId = clickedId;
+    this.modal = true;
   }
 }

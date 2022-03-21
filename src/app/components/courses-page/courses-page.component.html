@@ -1,7 +1,13 @@
+<app-modal-window
+  *ngIf="modal"
+  (close)="modal = false"
+  (confirm)="coursesData.removeItem(courseId); closeModalRefreshView()"
+></app-modal-window>
+<app-breadcrumbs></app-breadcrumbs>
 <app-input-section
   (inputValueEvent)="changeSearchString($event)"
 ></app-input-section>
 <app-courses-list
-  [courses]="filterCourses()"
+  [courses]="coursesData.filterCourses(searchString)"
   (btnCloseClicked)="btnCloseEventHandler($event)"
 ></app-courses-list>
