@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ICourse } from '../types/ICourse';
 
-@Injectable({
-  providedIn: 'root',
-})
 export class CoursesDataService {
   private userCourses: ICourse[] = [
     {
@@ -66,6 +63,12 @@ export class CoursesDataService {
 
   public removeItem(id: number): void {
     this.userCourses = this.userCourses.filter((course) => course.id !== id);
+  }
+
+  public filterCourses(str: string): ICourse[] {
+    return this.userCourses.filter(
+      (course) => course.title.indexOf(str.toLowerCase().trim()) > -1
+    );
   }
 
   public updateItem(): void {}

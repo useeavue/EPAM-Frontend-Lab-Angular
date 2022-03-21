@@ -16,6 +16,9 @@ import { OrderByPipe } from './pipes/order-by.pipe';
 import { DurationPipe } from './pipes/duration.pipe';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { ModalWindowComponent } from './components/modal-window/modal-window.component';
+import { CoursesDataService } from './services/courses-data.service';
+import { UsersDataService } from './services/users-data.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +38,7 @@ import { ModalWindowComponent } from './components/modal-window/modal-window.com
     ModalWindowComponent,
   ],
   imports: [BrowserModule, FormsModule],
-  providers: [],
+  providers: [CoursesDataService, UsersDataService, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -2,9 +2,7 @@ import { Injectable } from '@angular/core';
 import { IUser } from '../types/IUser';
 import { UsersDataService } from './users-data.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class AuthService {
   private userName: string = '';
   private users: IUser[] = this.usersData.getList();

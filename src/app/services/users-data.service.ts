@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IUser } from '../types/IUser';
 
-@Injectable({
-  providedIn: 'root',
-})
 export class UsersDataService {
   private users: IUser[] = [
     {
