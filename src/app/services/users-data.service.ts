@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
 import { IUser } from '../types/IUser';
 
 export class UsersDataService {
-  private users: IUser[] = [
+  public users: IUser[] = [
     {
       id: 0,
       firstName: 'Maksim',

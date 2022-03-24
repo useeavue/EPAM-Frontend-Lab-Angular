@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
 import { ICourse } from '../types/ICourse';
 
 export class CoursesDataService {
-  private userCourses: ICourse[] = [
+  public userCourses: ICourse[] = [
     {
       id: 1,
       title: 'video course',

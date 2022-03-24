@@ -4,8 +4,8 @@ import { UsersDataService } from './users-data.service';
 
 @Injectable()
 export class AuthService {
-  private userName: string = '';
-  private users: IUser[] = this.usersData.getList();
+  public userName: string = '';
+  public users: IUser[] = this.usersData.getList();
   public isAuth: boolean = false;
 
   constructor(private usersData: UsersDataService) {
@@ -15,7 +15,7 @@ export class AuthService {
     }
   }
 
-  private findUser(
+  public findUser(
     users: IUser[],
     login: string,
     password: string
@@ -27,11 +27,12 @@ export class AuthService {
 
   public logIn(login: string, password: string): void | boolean {
     const user = this.findUser(this.users, login, password);
-    if (!user) return;
+    if (!user) return false;
     this.userName = login;
     this.isAuth = true;
     localStorage.setItem('user', login);
     console.log('Logged In!');
+    return true;
   }
 
   public logOut(): void {
