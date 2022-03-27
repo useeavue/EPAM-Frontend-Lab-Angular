@@ -1,15 +1,15 @@
-import { TestBed } from '@angular/core/testing';
-
 import { AuthService } from './auth.service';
+import { LocalStorageService } from './local-storage.service';
 import { UsersDataService } from './users-data.service';
 
 describe('AuthService', () => {
   let authService: AuthService;
-  let usersDataServiceSpy: jasmine.SpyObj<UsersDataService>;
+  let usersDataService;
+  let localStorageService: jasmine.SpyObj<LocalStorageService>;
 
   beforeEach(() => {
-    const spy = jasmine.createSpyObj('UsersDataService', ['getList'], {
-      users: [
+    usersDataService = {
+      getList: () => [
         {
           id: 0,
           firstName: 'Maksim',
@@ -32,33 +32,48 @@ describe('AuthService', () => {
           password: 'root',
         },
       ],
+    };
+
+    localStorageService = jasmine.createSpyObj('LocalStorageService', {
+      getItem: () => '',
+      setItem: () => {
+        return;
+      },
+      removeItem: () => {
+        return;
+      },
     });
 
-    TestBed.configureTestingModule({
-      providers: [AuthService, { provide: UsersDataService, useValue: spy }],
-    });
-
-    authService = TestBed.inject(AuthService);
-    usersDataServiceSpy = TestBed.inject(
-      UsersDataService
-    ) as jasmine.SpyObj<UsersDataService>;
-
-    usersDataServiceSpy.getList.and.returnValue(usersDataServiceSpy.users);
-    authService.users = usersDataServiceSpy.getList();
+    authService = new AuthService(
+      usersDataService as UsersDataService,
+      localStorageService as LocalStorageService
+    );
   });
 
-  it('#logIn should successfully login user', () => {
+  it('#constructor should call localStorageService.getItem method', () => {
+    expect(localStorageService.getItem).toHaveBeenCalled();
+  });
+
+  it('#logIn should call localStorageService.setItem method', () => {
+    authService.logIn('user', 'root');
+    expect(localStorageService.setItem).toHaveBeenCalled();
+  });
+
+  it('#logIn should successfully login user with right username and password', () => {
     expect(authService.logIn('user', 'root')).toBeTrue();
   });
 
   it('#logOut should successfully logout user', () => {
     authService.logOut();
-
     expect(authService.isAuth).toBeFalse();
-    expect(authService.getUserInfo()).toBe('');
   });
 
-  it('#logIn should not successfully login user', () => {
+  it('#logOut should call localStorageService.removeItem method', () => {
+    authService.logOut();
+    expect(localStorageService.removeItem).toHaveBeenCalled();
+  });
+
+  it('#logIn should not successfully login user with wrong username and password', () => {
     expect(authService.logIn('qweqwe', 'qweqwe')).toBeFalse();
   });
 });

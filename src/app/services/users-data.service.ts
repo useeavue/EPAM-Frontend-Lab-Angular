@@ -1,7 +1,7 @@
 import { IUser } from '../types/IUser';
 
 export class UsersDataService {
-  public users: IUser[] = [
+  private users: IUser[] = [
     {
       id: 0,
       firstName: 'Maksim',

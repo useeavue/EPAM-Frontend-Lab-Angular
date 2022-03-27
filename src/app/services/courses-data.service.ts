@@ -1,7 +1,7 @@
 import { ICourse } from '../types/ICourse';
 
 export class CoursesDataService {
-  public userCourses: ICourse[] = [
+  private userCourses: ICourse[] = [
     {
       id: 1,
       title: 'video course',
