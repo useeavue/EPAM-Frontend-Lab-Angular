@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { IUser } from '../types/IUser';
 
 export class UsersDataService {

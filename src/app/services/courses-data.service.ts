@@ -1,4 +1,3 @@
-import { Injectable } from '@angular/core';
 import { ICourse } from '../types/ICourse';
 
 export class CoursesDataService {

@@ -19,6 +19,7 @@ import { ModalWindowComponent } from './components/modal-window/modal-window.com
 import { CoursesDataService } from './services/courses-data.service';
 import { UsersDataService } from './services/users-data.service';
 import { AuthService } from './services/auth.service';
+import { LocalStorageService } from './services/local-storage.service';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,12 @@ import { AuthService } from './services/auth.service';
     ModalWindowComponent,
   ],
   imports: [BrowserModule, FormsModule],
-  providers: [CoursesDataService, UsersDataService, AuthService],
+  providers: [
+    CoursesDataService,
+    UsersDataService,
+    AuthService,
+    LocalStorageService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
