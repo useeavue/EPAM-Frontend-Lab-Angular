@@ -9,6 +9,7 @@ export class CoursesDataService {
       duration: 82,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
     {
       id: 3,
@@ -17,6 +18,7 @@ export class CoursesDataService {
       duration: 94,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
     {
       id: 2,
@@ -25,6 +27,7 @@ export class CoursesDataService {
       duration: 119,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
     {
       id: 6,
@@ -33,6 +36,7 @@ export class CoursesDataService {
       duration: 15,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
     {
       id: 5,
@@ -41,6 +45,7 @@ export class CoursesDataService {
       duration: 60,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
     {
       id: 4,
@@ -49,6 +54,7 @@ export class CoursesDataService {
       duration: 120,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
   ];
 
@@ -56,12 +62,23 @@ export class CoursesDataService {
     return this.userCourses;
   }
 
-  public getItemById(id: number): ICourse | undefined {
+  public getCourseById(id: number): ICourse | undefined {
     return this.userCourses.find((course) => course.id === id);
   }
 
-  public removeItem(id: number): void {
+  public removeCourseById(id: number): void {
     this.userCourses = this.userCourses.filter((course) => course.id !== id);
+  }
+
+  public markCourseTopRated(id: number): void {
+    this.userCourses = this.userCourses.map((course) =>
+      course.id === id
+        ? {
+            ...course,
+            topRated: !course.topRated,
+          }
+        : course
+    );
   }
 
   public filterCourses(str: string): ICourse[] {

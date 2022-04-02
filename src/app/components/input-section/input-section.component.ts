@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { TempService } from 'src/app/services/temp.service';
 
 @Component({
   selector: 'app-input-section',
@@ -7,6 +8,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class InputSectionComponent {
   public inputValue: string = '';
+
+  constructor(public temp: TempService) {}
 
   @Output()
   public inputValueEvent = new EventEmitter<string>();

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { CoursesDataService } from 'src/app/services/courses-data.service';
 import { ICourse } from 'src/app/types/ICourse';
 
 @Component({
@@ -13,6 +14,8 @@ export class CoursesListComponent {
   public loadMoreHandler(): void {
     console.log('Load more');
   }
+
+  constructor(public coursesDataService: CoursesDataService) {}
 
   @Output()
   public btnCloseClicked = new EventEmitter<number>();

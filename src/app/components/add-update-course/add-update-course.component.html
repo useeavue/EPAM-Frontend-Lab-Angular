@@ -1,0 +1,51 @@
+<div class="add-update-course-window">
+  <h1>Add/Edit course</h1>
+  <form action="" accept-charset="utf-8">
+    <label for="title">Title:</label>
+    <input [(ngModel)]="title" type="text" id="title" name="title" required />
+    <label for="description">Description:</label>
+    <textarea
+      [(ngModel)]="description"
+      class="large description"
+      type="text"
+      id="description"
+      name="description"
+      required
+    ></textarea>
+    <label for="date">Date:</label>
+    <input
+      [(ngModel)]="date"
+      class="small"
+      type="date"
+      id="date"
+      name="date"
+      required
+    />
+    <label for="duration">Duration:</label>
+    <div class="duration">
+      <input
+        [(ngModel)]="duration"
+        class="small"
+        type="number"
+        id="duration"
+        name="duration"
+        required
+      />
+      <span>{{ durationNum | duration }}</span>
+    </div>
+    <label for="authors">Authors:</label>
+    <input
+      [(ngModel)]="authorsInput"
+      type="text"
+      id="authors"
+      name="authors"
+      required
+    />
+    <div class="buttons">
+      <button class="btn" (click)="save()">Save</button>
+      <button class="btn btn-red" (click)="close(); temp.addCoursePage = false">
+        Cancel
+      </button>
+    </div>
+  </form>
+</div>
