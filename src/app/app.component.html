@@ -1,9 +1,5 @@
 <app-header></app-header>
 <div class="page-body">
-  <app-add-update-course *ngIf="temp.addCoursePage"></app-add-update-course>
-  <div class="temp" *ngIf="!temp.addCoursePage">
-    <app-login-page *ngIf="!auth.isAuth"></app-login-page>
-    <app-courses-page *ngIf="auth.isAuth"></app-courses-page>
-  </div>
+  <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>

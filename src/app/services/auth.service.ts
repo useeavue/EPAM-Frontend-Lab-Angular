@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { IUser } from '../types/IUser';
 import { LocalStorageService } from './local-storage.service';
 import { UsersDataService } from './users-data.service';
@@ -7,14 +8,15 @@ import { UsersDataService } from './users-data.service';
 export class AuthService {
   private userName: string = '';
   private users: IUser[] = this.usersDataService.getList();
-  public isAuth: boolean = false;
+  public isAuthenticated: boolean = false;
 
   constructor(
     private usersDataService: UsersDataService,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private router: Router
   ) {
     if (this.localStorageService.getItem()) {
-      this.isAuth = true;
+      this.isAuthenticated = true;
       this.userName = this.localStorageService.getItem() || '';
     }
   }
@@ -33,20 +35,26 @@ export class AuthService {
     const user = this.findUser(this.users, login, password);
     if (!user) return false;
     this.userName = login;
-    this.isAuth = true;
+    this.isAuthenticated = true;
     this.localStorageService.setItem(login);
     console.log('Logged In!');
+    this.router.navigate(['']);
     return true;
   }
 
   public logOut(): void {
-    this.isAuth = false;
+    this.isAuthenticated = false;
     this.userName = '';
     this.localStorageService.removeItem();
     console.log('Logged Out!');
+    this.router.navigate(['/login']);
   }
 
   public getUserInfo(): string {
     return this.userName;
+  }
+
+  get isAuth() {
+    return this.isAuthenticated;
   }
 }

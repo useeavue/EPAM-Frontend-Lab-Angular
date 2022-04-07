@@ -21,7 +21,8 @@ import { UsersDataService } from './services/users-data.service';
 import { AuthService } from './services/auth.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { AddUpdateCourseComponent } from './components/add-update-course/add-update-course.component';
-import { TempService } from './services/temp.service';
+import { AppRoutingModule } from './app-routing.module';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -40,14 +41,14 @@ import { TempService } from './services/temp.service';
     LoginPageComponent,
     ModalWindowComponent,
     AddUpdateCourseComponent,
+    NotFoundPageComponent,
   ],
-  imports: [BrowserModule, FormsModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [
     CoursesDataService,
     UsersDataService,
     AuthService,
     LocalStorageService,
-    TempService,
   ],
   bootstrap: [AppComponent],
 })
