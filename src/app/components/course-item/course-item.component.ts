@@ -1,10 +1,17 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { ICourse } from 'src/app/types/ICourse';
 
 @Component({
   selector: 'app-course-item',
   templateUrl: './course-item.component.html',
   styleUrls: ['./course-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CourseItemComponent {
   @Input()
@@ -14,17 +21,18 @@ export class CourseItemComponent {
     creationDate: 0,
     duration: 0,
     description: '',
+    topRated: false,
   };
 
-  public topRated: boolean = false;
-
+  @Output()
+  public topRatedClicked = new EventEmitter<number>();
   public topRatedHandle(): void {
-    this.topRated = !this.topRated;
+    this.topRatedClicked.emit(this.course.id);
   }
 
   @Output()
-  public onClickEvent = new EventEmitter<number>();
-  public clickHandler(clicked: number): void {
-    this.onClickEvent.emit(clicked);
+  public deleteEvent = new EventEmitter<number>();
+  public deleteHandler(): void {
+    this.deleteEvent.emit(this.course.id);
   }
 }

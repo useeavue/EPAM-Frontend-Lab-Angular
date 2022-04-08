@@ -1,4 +1,4 @@
-<div class="course-card flex-center cour">
+<div class="course-card flex-center">
   <div
     class="container flex-center-gap-20 course-card-item"
     [course-item-border]="course.creationDate"
@@ -10,10 +10,14 @@
             {{ course.title | titlecase }} {{ course.id }}
           </h2>
           <div (click)="topRatedHandle()">
-            <span class="content-top-rated" [ngClass]="{ active: !topRated }"
+            <span
+              class="content-top-rated"
+              [ngClass]="{ active: !course.topRated }"
               >&#9734;</span
             >
-            <span class="content-top-rated" [ngClass]="{ active: topRated }"
+            <span
+              class="content-top-rated"
+              [ngClass]="{ active: course.topRated }"
               >&#9733;</span
             >
           </div>
@@ -33,7 +37,7 @@
     </div>
     <div class="btn-container flex-column-gap-20">
       <button class="btn">&#x2705; Edit</button>
-      <button class="btn btn-red" (click)="clickHandler(course.id)">
+      <button class="btn btn-red" (click)="deleteHandler()">
         &#x274E; Delete
       </button>
     </div>

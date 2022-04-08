@@ -15,6 +15,7 @@ describe('CoursesListComponent', () => {
       duration: 82,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
   ];
 

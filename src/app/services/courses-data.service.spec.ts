@@ -10,6 +10,7 @@ describe('CoursesDataService', () => {
       duration: 82,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
     {
       id: 3,
@@ -18,6 +19,7 @@ describe('CoursesDataService', () => {
       duration: 94,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
     {
       id: 2,
@@ -26,6 +28,7 @@ describe('CoursesDataService', () => {
       duration: 119,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
     {
       id: 6,
@@ -34,6 +37,7 @@ describe('CoursesDataService', () => {
       duration: 15,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
     {
       id: 5,
@@ -42,6 +46,7 @@ describe('CoursesDataService', () => {
       duration: 60,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
     {
       id: 4,
@@ -50,6 +55,7 @@ describe('CoursesDataService', () => {
       duration: 120,
       description:
         'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sit hic ipsunde a exercitationem voluptatibus labore fugiat autem ullam, atqueprovident tempora aliquam sunt saepe ab vitae nulla nemo veritatis nihilquisquam. Iusto ab numquam excepturi consequuntur dolor, deleniti ea!',
+      topRated: false,
     },
   ];
 
@@ -62,13 +68,13 @@ describe('CoursesDataService', () => {
   });
 
   it('#getItemById should return course object by given id', () => {
-    expect(coursesDataService.getItemById(1)).toEqual(
+    expect(coursesDataService.getCourseById(1)).toEqual(
       mockUserCourses.find((course) => course.id === 1)
     );
   });
 
   it('#removeItem should remove course object from the array by given id', () => {
-    coursesDataService.removeItem(1);
+    coursesDataService.removeCourseById(1);
     expect(
       coursesDataService.getList().some((course) => course.id === 1)
     ).toBeFalse();

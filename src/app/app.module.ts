@@ -20,6 +20,8 @@ import { CoursesDataService } from './services/courses-data.service';
 import { UsersDataService } from './services/users-data.service';
 import { AuthService } from './services/auth.service';
 import { LocalStorageService } from './services/local-storage.service';
+import { AddUpdateCourseComponent } from './components/add-update-course/add-update-course.component';
+import { TempService } from './services/temp.service';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { LocalStorageService } from './services/local-storage.service';
     DurationPipe,
     LoginPageComponent,
     ModalWindowComponent,
+    AddUpdateCourseComponent,
   ],
   imports: [BrowserModule, FormsModule],
   providers: [
@@ -44,6 +47,7 @@ import { LocalStorageService } from './services/local-storage.service';
     UsersDataService,
     AuthService,
     LocalStorageService,
+    TempService,
   ],
   bootstrap: [AppComponent],
 })

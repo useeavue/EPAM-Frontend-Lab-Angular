@@ -1,7 +1,7 @@
 <app-modal-window
   *ngIf="modal"
   (close)="modal = false"
-  (confirm)="coursesData.removeItem(courseId); closeModalRefreshView()"
+  (confirm)="coursesData.removeCourseById(courseId); closeModalRefreshView()"
 ></app-modal-window>
 <app-breadcrumbs></app-breadcrumbs>
 <app-input-section
