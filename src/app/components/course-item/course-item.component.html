@@ -36,7 +36,9 @@
       </p>
     </div>
     <div class="btn-container flex-column-gap-20">
-      <button class="btn">&#x2705; Edit</button>
+      <button class="btn" [routerLink]="['/courses', course.id]">
+        &#x2705; Edit
+      </button>
       <button class="btn btn-red" (click)="deleteHandler()">
         &#x274E; Delete
       </button>

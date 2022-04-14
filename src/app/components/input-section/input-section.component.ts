@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { TempService } from 'src/app/services/temp.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-input-section',
@@ -9,12 +9,16 @@ import { TempService } from 'src/app/services/temp.service';
 export class InputSectionComponent {
   public inputValue: string = '';
 
-  constructor(public temp: TempService) {}
+  constructor(private router: Router) {}
 
   @Output()
   public inputValueEvent = new EventEmitter<string>();
 
   public inputHandler(value: string): void {
     this.inputValueEvent.emit(value);
+  }
+
+  public addCourseHandler(): void {
+    this.router.navigate(['courses/new']);
   }
 }
