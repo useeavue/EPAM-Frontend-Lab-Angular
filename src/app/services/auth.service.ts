@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { IUser } from '../types/IUser';
 import { LocalStorageService } from './local-storage.service';
 import { UsersDataService } from './users-data.service';
 import { SERVER_URL } from '../common/config';
@@ -20,16 +19,6 @@ export class AuthService {
     if (this.localStorageService.getItem()) {
       this.isAuthenticated = true;
     }
-  }
-
-  private findUser(
-    users: IUser[],
-    login: string,
-    password: string
-  ): IUser | undefined {
-    return users.find(
-      (user) => user.login === login && user.password === password
-    );
   }
 
   public logIn(login: string, password: string) {

@@ -24,6 +24,13 @@ export class CourseItemComponent {
     isTopRated: false,
   };
 
+  @Input()
+  public courseNumber: number = 0;
+
+  get numberOfCourse() {
+    return `${this.courseNumber + 1}.`;
+  }
+
   @Output()
   public topRatedClicked = new EventEmitter<ICourse>();
   public topRatedHandle(): void {

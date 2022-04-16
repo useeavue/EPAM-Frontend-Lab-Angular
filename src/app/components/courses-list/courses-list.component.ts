@@ -8,7 +8,6 @@ import { ICourse } from 'src/app/types/ICourse';
   styleUrls: ['./courses-list.component.scss'],
 })
 export class CoursesListComponent implements OnInit {
-  public searchString: string = '';
   public courseId: number = 0;
   public modal: boolean = false;
   public courses: ICourse[] = [];
@@ -47,10 +46,6 @@ export class CoursesListComponent implements OnInit {
   public eventHandler(clicked: number): void {
     this.courseId = clicked;
     this.modal = true;
-  }
-
-  public changeSearchString(inputValue: string): void {
-    this.searchString = inputValue;
   }
 
   public searchCourses(str: string) {
