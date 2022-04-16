@@ -97,6 +97,7 @@ export class CoursesDataService {
     const url = `${this.coursesUrl}/${course.id}`;
     return this.http.put(url, {
       ...course,
+      name: course.name.slice(course.name.indexOf(' ') + 1),
       isTopRated: !course.isTopRated,
     });
   }
