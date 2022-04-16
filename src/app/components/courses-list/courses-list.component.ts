@@ -52,4 +52,12 @@ export class CoursesListComponent implements OnInit {
   public changeSearchString(inputValue: string): void {
     this.searchString = inputValue;
   }
+
+  public searchCourses(str: string) {
+    str === ''
+      ? this.getCourses(this.amountOfCourses)
+      : this.coursesDataService.searchCourses(str).subscribe((courses) => {
+          this.courses = courses;
+        });
+  }
 }

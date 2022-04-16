@@ -101,10 +101,8 @@ export class CoursesDataService {
     });
   }
 
-  public filterCourses(str: string): void {
-    // return this.userCourses.filter(
-    //   (course) => course.name.indexOf(str.toLowerCase().trim()) > -1
-    // );
+  public searchCourses(str: string): Observable<ICourse[]> {
+    return this.http.get<ICourse[]>(`${this.coursesUrl}?textFragment=${str}`);
   }
 
   public updateCourse(course: ICourse): void {

@@ -9,6 +9,7 @@ import { SERVER_URL } from '../common/config';
 @Injectable()
 export class AuthService {
   public isAuthenticated: boolean = false;
+  public errMessage: boolean = false;
 
   constructor(
     private usersDataService: UsersDataService,
@@ -37,12 +38,17 @@ export class AuthService {
         login,
         password,
       })
-      .subscribe((userData) => {
-        this.localStorageService.setItem(JSON.stringify(userData));
-        this.usersDataService.fetchUser();
-        this.isAuthenticated = true;
-        console.log('Logged In!');
-        this.router.navigate(['']);
+      .subscribe({
+        next: (userData) => {
+          this.localStorageService.setItem(JSON.stringify(userData));
+          this.usersDataService.fetchUser();
+          this.isAuthenticated = true;
+          console.log('Logged In!');
+          this.router.navigate(['']);
+        },
+        error: () => {
+          this.errMessage = true;
+        },
       });
   }
 
@@ -55,5 +61,9 @@ export class AuthService {
 
   get isAuth() {
     return this.isAuthenticated;
+  }
+
+  get isErr() {
+    return this.errMessage;
   }
 }
