@@ -20,12 +20,12 @@ export class BreadcrumbsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const id = +this.activatedRoute.snapshot.params['id'];
-    const course = this.coursesDataService.getCourseById(id);
-
-    course?.id ? (this.courseId = course.id) : (this.courseId = 0);
-    course?.title
-      ? (this.title = this.titleCasePipe.transform(course.title))
-      : (this.title = '');
+    if (this.activatedRoute.snapshot.params['id']) {
+      const id = +this.activatedRoute.snapshot.params['id'];
+      this.coursesDataService.getCourseById(id).subscribe((course) => {
+        this.title = this.titleCasePipe.transform(course.name);
+        this.courseId = course.id;
+      });
+    }
   }
 }

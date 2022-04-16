@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CoursesDataService } from 'src/app/services/courses-data.service';
 import { ICourse } from 'src/app/types/ICourse';
 
@@ -7,20 +7,49 @@ import { ICourse } from 'src/app/types/ICourse';
   templateUrl: './courses-list.component.html',
   styleUrls: ['./courses-list.component.scss'],
 })
-export class CoursesListComponent {
-  @Input()
+export class CoursesListComponent implements OnInit {
+  public searchString: string = '';
+  public courseId: number = 0;
+  public modal: boolean = false;
   public courses: ICourse[] = [];
+  private amountOfCourses: number = 5;
 
   public loadMoreHandler(): void {
-    console.log('Load more');
+    this.amountOfCourses += 2;
+    this.getCourses(this.amountOfCourses);
   }
 
   constructor(public coursesDataService: CoursesDataService) {}
 
-  @Output()
-  public btnCloseClicked = new EventEmitter<number>();
+  ngOnInit(): void {
+    this.getCourses(this.amountOfCourses);
+  }
+
+  private getCourses(count: number): void {
+    this.coursesDataService
+      .getList(0, count)
+      .subscribe((courses) => (this.courses = courses));
+  }
+
+  public closeModalDeleteCourse(): void {
+    this.coursesDataService.removeCourseById(this.courseId).subscribe(() => {
+      this.getCourses(this.amountOfCourses);
+    });
+    this.modal = false;
+  }
+
+  public markTopRated(course: ICourse) {
+    this.coursesDataService
+      .markCourseTopRated(course)
+      .subscribe(() => this.getCourses(this.amountOfCourses));
+  }
 
   public eventHandler(clicked: number): void {
-    this.btnCloseClicked.emit(clicked);
+    this.courseId = clicked;
+    this.modal = true;
+  }
+
+  public changeSearchString(inputValue: string): void {
+    this.searchString = inputValue;
   }
 }

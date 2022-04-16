@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -23,7 +24,7 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
     LoginPageComponent,
     NotFoundPageComponent,
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
   providers: [
     CoursesDataService,
     UsersDataService,

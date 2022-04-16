@@ -14,7 +14,6 @@ export class LoginPageComponent {
   constructor(private auth: AuthService) {}
 
   public logIn(login: string, password: string): void {
-    const loggedIn = this.auth.logIn(login, password);
-    if (!loggedIn) this.errMessage = true;
+    this.auth.logIn(login, password);
   }
 }

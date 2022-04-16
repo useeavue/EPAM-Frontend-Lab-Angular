@@ -1,33 +1,33 @@
 <div class="course-card flex-center">
   <div
     class="container flex-center-gap-20 course-card-item"
-    [course-item-border]="course.creationDate"
+    [course-item-border]="course.date"
   >
     <div class="content flex-column-gap-20">
       <div class="content-heading flex-center-sb">
         <div class="flex-center">
           <h2 class="content-name">
-            {{ course.title | titlecase }} {{ course.id }}
+            {{ course.id }}. {{ course.name | titlecase }}
           </h2>
           <div (click)="topRatedHandle()">
             <span
               class="content-top-rated"
-              [ngClass]="{ active: !course.topRated }"
+              [ngClass]="{ active: !course.isTopRated }"
               >&#9734;</span
             >
             <span
               class="content-top-rated"
-              [ngClass]="{ active: course.topRated }"
+              [ngClass]="{ active: course.isTopRated }"
               >&#9733;</span
             >
           </div>
         </div>
         <div class="content-info flex-center-gap-20">
           <h2 class="content-duration">
-            {{ course.duration | duration }}
+            {{ course.length | duration }}
           </h2>
           <h2 class="content-date">
-            {{ course.creationDate | date: "MM.dd.yyyy" }}
+            {{ course.date | date: "MM.dd.yyyy" }}
           </h2>
         </div>
       </div>

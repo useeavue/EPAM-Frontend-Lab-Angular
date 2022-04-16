@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import * as numbers from '../common/numbers';
 
@@ -6,8 +7,9 @@ import * as numbers from '../common/numbers';
 })
 export class CourseItemBorderDirective implements OnInit {
   @Input('course-item-border')
-  public creationDate: number = 0;
+  public date: string = '';
 
+  private creationDate: number = 0;
   private currentDate: number = Date.now();
   private fourteenDays: number =
     numbers.MILLESECONDS_IN_SECOND *
@@ -19,6 +21,7 @@ export class CourseItemBorderDirective implements OnInit {
   constructor(private element: ElementRef) {}
 
   ngOnInit() {
+    this.creationDate = Date.parse(this.date);
     if (
       this.creationDate < this.currentDate &&
       this.creationDate >= this.currentDate - this.fourteenDays
