@@ -49,7 +49,7 @@ export class CoursesListComponent implements OnInit {
   }
 
   public searchCourses(str: string) {
-    str === ''
+    str.trim() === ''
       ? this.getCourses(this.amountOfCourses)
       : this.coursesDataService.searchCourses(str).subscribe((courses) => {
           this.courses = courses;

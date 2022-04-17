@@ -16,7 +16,7 @@ export class AddUpdateCourseComponent implements OnInit {
   public date: string | null = '';
   public authorsInput: string = '';
   public authors: Array<any> = [];
-  public heading: string = '';
+  public heading: string = 'Add';
   public course: ICourse = {
     id: 0,
     name: '',
@@ -47,8 +47,6 @@ export class AddUpdateCourseComponent implements OnInit {
           this.course.date = course.date;
           this.date = this.datePipe.transform(course.date, 'yyyy-MM-dd');
         });
-    } else {
-      this.heading = 'Add';
     }
   }
 
@@ -58,19 +56,21 @@ export class AddUpdateCourseComponent implements OnInit {
 
   public save(): void {
     if (this.courseId) {
-      this.coursesDataService.updateCourse({
-        ...this.course,
-        date: this.date ? new Date(this.date).toISOString() : '',
-      });
+      this.coursesDataService
+        .updateCourse({
+          ...this.course,
+          date: this.date ? new Date(this.date).toISOString() : '',
+        })
+        .subscribe(() => this.returnHome());
     } else {
-      this.coursesDataService.createCourse({
-        ...this.course,
-        id: randomInt(10000, 15000),
-        date: this.date ? new Date(this.date).toISOString() : '',
-      });
+      this.coursesDataService
+        .createCourse({
+          ...this.course,
+          id: randomInt(10000, 15000),
+          date: this.date ? new Date(this.date).toISOString() : '',
+        })
+        .subscribe(() => this.returnHome);
     }
-
-    this.returnHome();
   }
   public close(): void {
     this.returnHome();

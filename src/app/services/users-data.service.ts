@@ -27,20 +27,17 @@ export class UsersDataService {
     return `${this.user.name.first} ${this.user.name.last}`;
   }
 
-  public fetchUser(): boolean {
+  get currentUser() {
+    return this.user;
+  }
+
+  public fetchUser(): void {
     if (this.localStorageService.getItem()) {
-      const userStr: string = JSON.stringify(
-        this.localStorageService.getItem()
-      );
-      const userObj = JSON.parse(JSON.parse(userStr));
       this.http
-        .get<IUser>(`${SERVER_URL}/users/${userObj['id']}`)
+        .post<IUser>(`${SERVER_URL}/auth/userinfo`, {})
         .subscribe((user) => {
           this.user = user;
         });
-      return true;
-    } else {
-      return false;
     }
   }
 }

@@ -35,7 +35,8 @@ export class AuthService {
           console.log('Logged In!');
           this.router.navigate(['']);
         },
-        error: () => {
+        error: (err) => {
+          console.error(err);
           this.errMessage = true;
         },
       });

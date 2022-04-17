@@ -24,7 +24,7 @@ export class CoursesDataService {
     return this.http.get<ICourse>(url);
   }
 
-  public removeCourseById(id: number) {
+  public removeCourseById(id: number): Observable<Object> {
     const url = `${this.coursesUrl}/${id}`;
     return this.http.delete(url);
   }
@@ -41,20 +41,12 @@ export class CoursesDataService {
     return this.http.get<ICourse[]>(`${this.coursesUrl}?textFragment=${str}`);
   }
 
-  public updateCourse(course: ICourse): void {
+  public updateCourse(course: ICourse): Observable<Object> {
     const url = `${this.coursesUrl}/${course.id}`;
-    this.http
-      .put(url, {
-        ...course,
-      })
-      .subscribe();
+    return this.http.put(url, course);
   }
 
-  public createCourse(course: ICourse): void {
-    this.http
-      .post(this.coursesUrl, {
-        ...course,
-      })
-      .subscribe();
+  public createCourse(course: ICourse): Observable<Object> {
+    return this.http.post(this.coursesUrl, course);
   }
 }
