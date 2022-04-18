@@ -11,28 +11,29 @@ export class CoursesListComponent implements OnInit {
   public courseId: number = 0;
   public modal: boolean = false;
   public courses: ICourse[] = [];
+  private coursesStartIndex: number = 0;
   private amountOfCourses: number = 5;
 
   public loadMoreHandler(): void {
     this.amountOfCourses += 2;
-    this.getCourses(this.amountOfCourses);
+    this.getCourses();
   }
 
   constructor(public coursesDataService: CoursesDataService) {}
 
   ngOnInit(): void {
-    this.getCourses(this.amountOfCourses);
+    this.getCourses();
   }
 
-  private getCourses(count: number): void {
+  private getCourses(): void {
     this.coursesDataService
-      .getList(0, count)
+      .getList(this.coursesStartIndex, this.amountOfCourses)
       .subscribe((courses) => (this.courses = courses));
   }
 
   public closeModalDeleteCourse(): void {
     this.coursesDataService.removeCourseById(this.courseId).subscribe(() => {
-      this.getCourses(this.amountOfCourses);
+      this.getCourses();
     });
     this.modal = false;
   }
@@ -40,7 +41,7 @@ export class CoursesListComponent implements OnInit {
   public markTopRated(course: ICourse) {
     this.coursesDataService
       .markCourseTopRated(course)
-      .subscribe(() => this.getCourses(this.amountOfCourses));
+      .subscribe(() => this.getCourses());
   }
 
   public eventHandler(clicked: number): void {
@@ -50,7 +51,7 @@ export class CoursesListComponent implements OnInit {
 
   public searchCourses(str: string) {
     str.trim() === ''
-      ? this.getCourses(this.amountOfCourses)
+      ? this.getCourses()
       : this.coursesDataService.searchCourses(str).subscribe((courses) => {
           this.courses = courses;
         });
