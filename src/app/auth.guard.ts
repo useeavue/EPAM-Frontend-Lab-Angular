@@ -1,3 +1,5 @@
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { calcPossibleSecurityContexts } from '@angular/compiler/src/template_parser/binding_parser';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -6,19 +8,33 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { AuthService } from './services/auth.service';
+import { UsersDataService } from './services/users-data.service';
+import { IUser } from './types/IUser';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private router: Router,
+    private usersDataService: UsersDataService,
+    private authService: AuthService
+  ) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ): boolean | UrlTree {
-    const loginPageUrlTree = this.router.parseUrl('/login');
-    return this.authService.isAuth ? true : loginPageUrlTree;
+  ): Observable<boolean> {
+    return this.authService.getUserInfo().pipe(
+      map((value) => {
+        if (value) {
+          return true;
+        } else {
+          return false;
+        }
+      })
+    );
   }
 }

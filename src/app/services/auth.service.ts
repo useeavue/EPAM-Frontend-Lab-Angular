@@ -2,58 +2,52 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocalStorageService } from './local-storage.service';
-import { UsersDataService } from './users-data.service';
 import { SERVER_URL } from '../common/config';
+import { AuthResponse } from '../types/IAuthResponse';
+import { Observable, Subject, tap } from 'rxjs';
+import { IUser } from '../types/IUser';
 
 @Injectable()
 export class AuthService {
-  public isAuthenticated: boolean = false;
+  public userName$: Subject<string> = new Subject<string>();
   public errMessage: boolean = false;
 
   constructor(
-    private usersDataService: UsersDataService,
     private localStorageService: LocalStorageService,
     private router: Router,
     private http: HttpClient
-  ) {
-    if (this.localStorageService.getItem()) {
-      this.isAuthenticated = true;
-    }
-  }
+  ) {}
 
-  public logIn(login: string, password: string) {
-    this.http
-      .post(`${SERVER_URL}/auth/login`, {
+  public logIn(login: string, password: string): Observable<AuthResponse> {
+    return this.http
+      .post<AuthResponse>(`${SERVER_URL}/auth/login`, {
         login,
         password,
       })
-      .subscribe({
-        next: (userData) => {
-          this.localStorageService.setItem(JSON.stringify(userData));
-          this.usersDataService.fetchUser();
-          this.isAuthenticated = true;
-          console.log('Logged In!');
-          this.router.navigate(['']);
+      .pipe(tap(this.setToken.bind(this)));
+  }
+
+  private setToken(response: AuthResponse) {
+    this.localStorageService.setItem(response.token);
+  }
+
+  public getUserInfo(): Observable<IUser> {
+    return this.http.post<IUser>(`${SERVER_URL}/auth/userinfo`, {}).pipe(
+      tap({
+        next: (user) => {
+          const userName = `${user.name.first} ${user.name.last}`;
+          this.userName$.next(userName);
         },
-        error: (err) => {
-          console.error(err);
-          this.errMessage = true;
+        error: () => {
+          this.logOut();
         },
-      });
+      })
+    );
   }
 
   public logOut(): void {
-    this.isAuthenticated = false;
     this.localStorageService.removeItem();
-    console.log('Logged Out!');
+    this.userName$.next('');
     this.router.navigate(['/login']);
-  }
-
-  get isAuth() {
-    return this.isAuthenticated;
-  }
-
-  get isErr() {
-    return this.errMessage;
   }
 }

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { IUser } from '../types/IUser';
 import { SERVER_URL } from '../common/config';
 import { LocalStorageService } from './local-storage.service';
+import { Observable, of, Subject, tap } from 'rxjs';
 
 @Injectable()
 export class UsersDataService {
@@ -20,7 +21,7 @@ export class UsersDataService {
     private http: HttpClient,
     private localStorageService: LocalStorageService
   ) {
-    this.fetchUser();
+    // this.fetchUser();
   }
 
   get userName() {
@@ -31,13 +32,7 @@ export class UsersDataService {
     return this.user;
   }
 
-  public fetchUser(): void {
-    if (this.localStorageService.getItem()) {
-      this.http
-        .post<IUser>(`${SERVER_URL}/auth/userinfo`, {})
-        .subscribe((user) => {
-          this.user = user;
-        });
-    }
+  public fetchUser(): Observable<IUser> {
+    return this.http.post<IUser>(`${SERVER_URL}/auth/userinfo`, {});
   }
 }

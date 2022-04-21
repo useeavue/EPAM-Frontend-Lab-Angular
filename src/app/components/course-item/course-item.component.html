@@ -36,7 +36,11 @@
       </p>
     </div>
     <div class="btn-container flex-column-gap-20">
-      <button class="btn" [routerLink]="['/courses', course.id]">
+      <button
+        class="btn"
+        [routerLink]="['/courses', course.id]"
+        [queryParams]="{ title: course.name }"
+      >
         &#x2705; Edit
       </button>
       <button class="btn btn-red" (click)="deleteHandler()">
