@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit, OnDestroy {
+export class LoginPageComponent implements OnDestroy {
   public userNameInput: string = '';
   public userPasswordInput: string = '';
   public isError: boolean = false;
@@ -30,17 +30,6 @@ export class LoginPageComponent implements OnInit, OnDestroy {
         error: () => {
           this.isError = true;
         },
-      })
-    );
-  }
-
-  ngOnInit(): void {
-    this.subscription.add(
-      this.route.queryParams.subscribe((params: Params) => {
-        if (params['error']) {
-          this.errorMessage = params['error'];
-          this.isError = true;
-        }
       })
     );
   }

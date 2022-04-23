@@ -24,12 +24,8 @@ export class AuthGuard implements CanActivate {
           const userName = `${user.name.first} ${user.name.last}`;
           this.authService.userName$.next(userName);
         },
-        error: (err) => {
-          this.router.navigate(['/login'], {
-            queryParams: {
-              error: err.statusText,
-            },
-          });
+        error: () => {
+          this.authService.logOut();
         },
       }),
       map((value) => {
