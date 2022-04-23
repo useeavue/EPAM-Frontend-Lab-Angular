@@ -3,9 +3,7 @@
   (close)="modal = false"
   (confirm)="closeModalDeleteCourse()"
 ></app-modal-window>
-<app-input-section
-  (inputValueEvent)="searchCourses($event)"
-></app-input-section>
+<app-input-section (inputValueEvent)="handleSearch($event)"></app-input-section>
 <div class="courses-list-wrap flex-center">
   <div class="container flex-column-gap-20">
     <app-course-item

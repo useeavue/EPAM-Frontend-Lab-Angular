@@ -63,7 +63,7 @@ export class CoursesListComponent implements OnInit, OnDestroy {
     this.modal = true;
   }
 
-  public searchCourses(str: string) {
+  public handleSearch(str: string) {
     str.trim() === ''
       ? this.getCourses()
       : this.subscription.add(

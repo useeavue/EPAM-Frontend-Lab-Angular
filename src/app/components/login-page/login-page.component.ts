@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { Subscriber, Subscription } from 'rxjs';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -8,23 +8,41 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnDestroy {
+export class LoginPageComponent implements OnInit, OnDestroy {
   public userNameInput: string = '';
   public userPasswordInput: string = '';
-  public errMessage: boolean = false;
+  public isError: boolean = false;
+  public errorMessage: string = 'Wrong username or password!';
   private subscription: Subscription = new Subscription();
 
-  constructor(public authService: AuthService, private router: Router) {}
+  constructor(
+    public authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   public logIn(login: string, password: string): void {
-    this.subscription = this.authService.logIn(login, password).subscribe({
-      next: () => {
-        this.router.navigate(['']);
-      },
-      error: () => {
-        this.errMessage = true;
-      },
-    });
+    this.subscription.add(
+      this.authService.logIn(login, password).subscribe({
+        next: () => {
+          this.router.navigate(['']);
+        },
+        error: () => {
+          this.isError = true;
+        },
+      })
+    );
+  }
+
+  ngOnInit(): void {
+    this.subscription.add(
+      this.route.queryParams.subscribe((params: Params) => {
+        if (params['error']) {
+          this.errorMessage = params['error'];
+          this.isError = true;
+        }
+      })
+    );
   }
 
   ngOnDestroy(): void {

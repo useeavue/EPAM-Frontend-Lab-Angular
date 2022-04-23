@@ -1,9 +1,12 @@
-import { trigger, transition, style, animate } from '@angular/animations';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-spinner',
   templateUrl: './spinner.component.html',
   styleUrls: ['./spinner.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SpinnerComponent {}
+export class SpinnerComponent {
+  @Input()
+  public isLoading: boolean = false;
+}

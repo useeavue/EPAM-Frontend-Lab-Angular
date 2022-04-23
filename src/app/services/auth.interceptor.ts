@@ -3,10 +3,9 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { debounceTime, delay, finalize, Observable, tap } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
 import { SpinnerService } from './spinner.service';
 

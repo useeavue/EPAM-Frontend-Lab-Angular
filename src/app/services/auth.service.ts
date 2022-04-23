@@ -24,7 +24,11 @@ export class AuthService {
         login,
         password,
       })
-      .pipe(tap(this.setToken.bind(this)));
+      .pipe(
+        tap((response) => {
+          this.setToken(response);
+        })
+      );
   }
 
   private setToken(response: AuthResponse) {
@@ -32,17 +36,7 @@ export class AuthService {
   }
 
   public getUserInfo(): Observable<IUser> {
-    return this.http.post<IUser>(`${SERVER_URL}/auth/userinfo`, {}).pipe(
-      tap({
-        next: (user) => {
-          const userName = `${user.name.first} ${user.name.last}`;
-          this.userName$.next(userName);
-        },
-        error: () => {
-          this.logOut();
-        },
-      })
-    );
+    return this.http.post<IUser>(`${SERVER_URL}/auth/userinfo`, {});
   }
 
   public logOut(): void {

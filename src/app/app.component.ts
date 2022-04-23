@@ -1,6 +1,5 @@
-import { trigger, transition, style, animate } from '@angular/animations';
-import { ChangeDetectorRef, Component, DoCheck, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+
 import { debounceTime } from 'rxjs';
 import { AuthService } from './services/auth.service';
 import { SpinnerService } from './services/spinner.service';
@@ -11,7 +10,6 @@ import { SpinnerService } from './services/spinner.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  public title: string = 'ng-course';
   public isLoading: boolean = false;
 
   constructor(
