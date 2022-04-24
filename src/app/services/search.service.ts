@@ -1,4 +1,4 @@
-import { debounceTime, filter, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, Subject } from 'rxjs';
 
 export class SearchService {
   public searchInput$: Subject<string> = new Subject<string>();
@@ -9,7 +9,8 @@ export class SearchService {
       filter((value) => {
         if (value.trim() === '') return true;
         return value.length > 2;
-      })
+      }),
+      distinctUntilChanged()
     );
   }
 }
