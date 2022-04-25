@@ -5,8 +5,8 @@
         type="text"
         placeholder="Text to search"
         [(ngModel)]="inputValue"
+        (keyup)="inputHandler(inputValue)"
       />
-      <button class="btn" (click)="inputHandler(inputValue)">Search</button>
     </div>
     <button class="btn" (click)="addCourseHandler()">
       &#x2705; Add course

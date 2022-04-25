@@ -1,4 +1,3 @@
-import { DatePipe } from '@angular/common';
 import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import * as numbers from '../common/numbers';
 
@@ -11,26 +10,36 @@ export class CourseItemBorderDirective implements OnInit {
 
   private creationDate: number = 0;
   private currentDate: number = Date.now();
-  private fourteenDays: number =
-    numbers.MILLESECONDS_IN_SECOND *
-    numbers.SECONDS_IN_MINUTE *
-    numbers.MINUTES_IN_HOUR *
-    numbers.HOURS_IN_DAY *
-    (numbers.DAYS_IN_WEEK * 2);
+  private fourteenDays: number;
 
-  constructor(private element: ElementRef) {}
+  constructor(private element: ElementRef) {
+    this.fourteenDays =
+      numbers.MILLESECONDS_IN_SECOND *
+      numbers.SECONDS_IN_MINUTE *
+      numbers.MINUTES_IN_HOUR *
+      numbers.HOURS_IN_DAY *
+      (numbers.DAYS_IN_WEEK * 2);
+  }
 
   ngOnInit() {
     this.creationDate = Date.parse(this.date);
-    if (
-      this.creationDate < this.currentDate &&
-      this.creationDate >= this.currentDate - this.fourteenDays
-    ) {
+    if (this.isBorderGreen()) {
       this.changeBorderColor('green');
     }
-    if (this.creationDate > this.currentDate) {
+    if (this.isBorderBlue()) {
       this.changeBorderColor('blue');
     }
+  }
+
+  private isBorderGreen(): boolean {
+    return this.creationDate < this.currentDate &&
+      this.creationDate >= this.currentDate - this.fourteenDays
+      ? true
+      : false;
+  }
+
+  private isBorderBlue(): boolean {
+    return this.creationDate > this.currentDate ? true : false;
   }
 
   private changeBorderColor(color: string) {
