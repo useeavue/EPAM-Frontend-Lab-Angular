@@ -1,9 +1,11 @@
 <header class="header flex-center">
   <div class="container flex-center-sb">
     <app-logo></app-logo>
-    <div class="flex-center-gap-20" *ngIf="auth.isAuth">
-      <p class="welcome-msg">Welcome, {{ auth.getUserInfo() }}!</p>
-      <button class="btn btn-red" (click)="auth.logOut()">Log Off</button>
+    <div class="flex-center-gap-20" *ngIf="authService.isAuth">
+      <p class="welcome-msg">Welcome, {{ usersDataService.userName }}!</p>
+      <button class="btn btn-red" (click)="authService.logOut()">
+        Log Off
+      </button>
     </div>
   </div>
 </header>

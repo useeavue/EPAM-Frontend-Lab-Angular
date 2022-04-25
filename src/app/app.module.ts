@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -13,6 +14,7 @@ import { AuthService } from './services/auth.service';
 import { LocalStorageService } from './services/local-storage.service';
 import { AppRoutingModule } from './app-routing.module';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { AuthInterceptor } from './services/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -23,12 +25,17 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
     LoginPageComponent,
     NotFoundPageComponent,
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  imports: [BrowserModule, FormsModule, AppRoutingModule, HttpClientModule],
   providers: [
     CoursesDataService,
     UsersDataService,
     AuthService,
     LocalStorageService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

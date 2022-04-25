@@ -10,8 +10,7 @@ import { CoursesDataService } from 'src/app/services/courses-data.service';
   providers: [TitleCasePipe],
 })
 export class BreadcrumbsComponent implements OnInit {
-  public title: string = '';
-  public courseId: number = 0;
+  private title: string = '';
 
   constructor(
     private coursesDataService: CoursesDataService,
@@ -19,13 +18,16 @@ export class BreadcrumbsComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
-    const id = +this.activatedRoute.snapshot.params['id'];
-    const course = this.coursesDataService.getCourseById(id);
+  get titleTemplate() {
+    return this.title ? `/${this.title}` : '';
+  }
 
-    course?.id ? (this.courseId = course.id) : (this.courseId = 0);
-    course?.title
-      ? (this.title = this.titleCasePipe.transform(course.title))
-      : (this.title = '');
+  ngOnInit(): void {
+    if (this.activatedRoute.snapshot.params['id']) {
+      const id = +this.activatedRoute.snapshot.params['id'];
+      this.coursesDataService.getCourseById(id).subscribe((course) => {
+        this.title = this.titleCasePipe.transform(course.name);
+      });
+    }
   }
 }

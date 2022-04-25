@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { UsersDataService } from 'src/app/services/users-data.service';
 
 @Component({
   selector: 'app-header',
@@ -7,5 +8,8 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
-  constructor(public auth: AuthService) {}
+  constructor(
+    public authService: AuthService,
+    public usersDataService: UsersDataService
+  ) {}
 }

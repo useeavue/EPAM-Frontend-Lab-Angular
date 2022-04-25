@@ -1,31 +1,43 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { IUser } from '../types/IUser';
+import { SERVER_URL } from '../common/config';
+import { LocalStorageService } from './local-storage.service';
 
+@Injectable()
 export class UsersDataService {
-  private users: IUser[] = [
-    {
-      id: 0,
-      firstName: 'Maksim',
-      lastName: 'Makarov',
-      username: 'user',
-      password: 'root',
+  private user: IUser = {
+    id: 0,
+    name: {
+      first: '',
+      last: '',
     },
-    {
-      id: 1,
-      firstName: 'Maksim1',
-      lastName: 'Makarov1',
-      username: 'user1',
-      password: 'root',
-    },
-    {
-      id: 2,
-      firstName: 'Maksim2',
-      lastName: 'Makarov2',
-      username: 'user2',
-      password: 'root',
-    },
-  ];
+    login: '',
+    password: '',
+  };
 
-  public getList(): IUser[] {
-    return this.users;
+  constructor(
+    private http: HttpClient,
+    private localStorageService: LocalStorageService
+  ) {
+    this.fetchUser();
+  }
+
+  get userName() {
+    return `${this.user.name.first} ${this.user.name.last}`;
+  }
+
+  get currentUser() {
+    return this.user;
+  }
+
+  public fetchUser(): void {
+    if (this.localStorageService.getItem()) {
+      this.http
+        .post<IUser>(`${SERVER_URL}/auth/userinfo`, {})
+        .subscribe((user) => {
+          this.user = user;
+        });
+    }
   }
 }

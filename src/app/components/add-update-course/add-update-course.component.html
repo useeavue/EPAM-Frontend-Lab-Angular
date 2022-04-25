@@ -1,11 +1,10 @@
 <app-breadcrumbs></app-breadcrumbs>
 <div class="add-update-course-window">
   <h1>{{ heading }} course</h1>
-  <form action="" accept-charset="utf-8">
+  <div class="form">
     <label for="title">Title:</label>
     <input
-      [(ngModel)]="title"
-      value="{{ title }}"
+      [(ngModel)]="course.name"
       type="text"
       id="title"
       name="title"
@@ -13,8 +12,7 @@
     />
     <label for="description">Description:</label>
     <textarea
-      [(ngModel)]="description"
-      [value]="description"
+      [(ngModel)]="course.description"
       class="large description"
       type="text"
       id="description"
@@ -24,7 +22,6 @@
     <label for="date">Date:</label>
     <input
       [(ngModel)]="date"
-      value="{{ date }}"
       class="small"
       type="date"
       id="date"
@@ -34,15 +31,14 @@
     <label for="duration">Duration:</label>
     <div class="duration">
       <input
-        [(ngModel)]="duration"
-        value="{{ duration }}"
+        [(ngModel)]="course.length"
         class="small"
         type="number"
         id="duration"
         name="duration"
         required
       />
-      <span>{{ +duration | duration }}</span>
+      <span>{{ course.length | duration }}</span>
     </div>
     <label for="authors">Authors:</label>
     <input
@@ -56,5 +52,5 @@
       <button class="btn" (click)="save()">Save</button>
       <button class="btn btn-red" (click)="close()">Cancel</button>
     </div>
-  </form>
+  </div>
 </div>

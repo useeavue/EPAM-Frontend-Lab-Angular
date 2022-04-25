@@ -17,22 +17,30 @@ export class CourseItemComponent {
   @Input()
   public course: ICourse = {
     id: 0,
-    title: '',
-    creationDate: 0,
-    duration: 0,
+    name: '',
+    date: '',
+    length: 0,
     description: '',
-    topRated: false,
+    isTopRated: false,
   };
 
+  @Input()
+  public courseNumber: number = 0;
+
+  get numberOfCourse() {
+    return `${this.courseNumber + 1}.`;
+  }
+
   @Output()
-  public topRatedClicked = new EventEmitter<number>();
+  public topRatedClicked = new EventEmitter<ICourse>();
   public topRatedHandle(): void {
-    this.topRatedClicked.emit(this.course.id);
+    this.topRatedClicked.emit(this.course);
   }
 
   @Output()
   public deleteEvent = new EventEmitter<number>();
   public deleteHandler(): void {
     this.deleteEvent.emit(this.course.id);
+    console.log(this.course.id);
   }
 }

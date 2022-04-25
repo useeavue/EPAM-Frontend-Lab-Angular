@@ -1,7 +1,7 @@
 <div class="login-window">
   <h1>Login</h1>
   <form action="" accept-charset="utf-8">
-    <p *ngIf="errMessage">Wrong username or password!</p>
+    <p *ngIf="authService.isErr">Wrong username or password!</p>
     <label for="userName">Username:</label>
     <input
       [(ngModel)]="userNameInput"

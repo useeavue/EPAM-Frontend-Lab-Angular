@@ -9,12 +9,10 @@ import { AuthService } from 'src/app/services/auth.service';
 export class LoginPageComponent {
   public userNameInput: string = '';
   public userPasswordInput: string = '';
-  public errMessage: boolean = false;
 
-  constructor(private auth: AuthService) {}
+  constructor(public authService: AuthService) {}
 
   public logIn(login: string, password: string): void {
-    const loggedIn = this.auth.logIn(login, password);
-    if (!loggedIn) this.errMessage = true;
+    this.authService.logIn(login, password);
   }
 }
