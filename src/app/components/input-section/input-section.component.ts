@@ -16,12 +16,14 @@ import { SearchService } from 'src/app/services/search.service';
 })
 export class InputSectionComponent implements OnInit, OnDestroy {
   public inputValue: string = '';
-  private subscription: Subscription = new Subscription();
+  private subscription: Subscription;
 
   @Output()
   public inputValueEvent = new EventEmitter<string>();
 
-  constructor(private router: Router, private searchService: SearchService) {}
+  constructor(private router: Router, private searchService: SearchService) {
+    this.subscription = new Subscription();
+  }
 
   ngOnInit(): void {
     this.subscription.add(

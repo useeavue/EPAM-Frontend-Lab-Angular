@@ -41,6 +41,5 @@ export class CourseItemComponent {
   public deleteEvent = new EventEmitter<number>();
   public deleteHandler(): void {
     this.deleteEvent.emit(this.course.id);
-    console.log(this.course.id);
   }
 }

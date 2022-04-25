@@ -14,14 +14,16 @@ export class CoursesListComponent implements OnInit, OnDestroy {
   public courses: ICourse[] = [];
   private coursesStartIndex: number = 0;
   private amountOfCourses: number = 5;
-  private subscription: Subscription = new Subscription();
+  private subscription: Subscription;
 
   public loadMoreHandler(): void {
     this.amountOfCourses += 2;
     this.getCourses();
   }
 
-  constructor(public coursesDataService: CoursesDataService) {}
+  constructor(public coursesDataService: CoursesDataService) {
+    this.subscription = new Subscription();
+  }
 
   ngOnInit(): void {
     this.getCourses();

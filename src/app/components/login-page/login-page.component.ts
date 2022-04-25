@@ -12,14 +12,13 @@ export class LoginPageComponent implements OnDestroy {
   public userNameInput: string = '';
   public userPasswordInput: string = '';
   public isError: boolean = false;
-  public errorMessage: string = 'Wrong username or password!';
-  private subscription: Subscription = new Subscription();
+  public errorMessage: string;
+  private subscription: Subscription;
 
-  constructor(
-    public authService: AuthService,
-    private router: Router,
-    private route: ActivatedRoute
-  ) {}
+  constructor(public authService: AuthService, private router: Router) {
+    this.subscription = new Subscription();
+    this.errorMessage = 'Wrong username or password!';
+  }
 
   public logIn(login: string, password: string): void {
     this.subscription.add(

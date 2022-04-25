@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesDataService } from 'src/app/services/courses-data.service';
 import { ICourse } from '../../types/ICourse';
 import { randomInt } from 'src/app/common/numbers';
-import { SpinnerService } from 'src/app/services/spinner.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -14,20 +13,13 @@ import { Subscription } from 'rxjs';
   providers: [DatePipe, TitleCasePipe],
 })
 export class AddUpdateCourseComponent implements OnInit, OnDestroy {
-  private courseId: number = +this.activatedRoute.snapshot.params['id'] || 0;
+  private courseId: number;
   public date: string | null = '';
   public authorsInput: string = '';
   public authors: Array<any> = [];
   public heading: string = 'Add';
-  private subscription: Subscription = new Subscription();
-  public course: ICourse = {
-    id: 0,
-    name: '',
-    date: '',
-    length: 0,
-    description: '',
-    isTopRated: false,
-  };
+  private subscription: Subscription;
+  public course: ICourse;
 
   constructor(
     private router: Router,
@@ -35,7 +27,18 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
     private coursesDataService: CoursesDataService,
     private datePipe: DatePipe,
     private titleCasePipe: TitleCasePipe
-  ) {}
+  ) {
+    this.course = {
+      id: 0,
+      name: '',
+      date: '',
+      length: 0,
+      description: '',
+      isTopRated: false,
+    };
+    this.courseId = +this.activatedRoute.snapshot.params['id'] || 0;
+    this.subscription = new Subscription();
+  }
 
   ngOnInit(): void {
     if (this.courseId) {

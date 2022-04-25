@@ -7,8 +7,7 @@ export class SearchService {
     return this.searchInput$.pipe(
       debounceTime(500),
       filter((value) => {
-        if (value.trim() === '') return true;
-        return value.length > 2;
+        return value.trim() === '' ? true : value.length > 2;
       }),
       distinctUntilChanged()
     );
