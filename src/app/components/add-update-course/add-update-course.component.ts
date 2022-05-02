@@ -2,9 +2,10 @@ import { DatePipe, TitleCasePipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesDataService } from 'src/app/services/courses-data.service';
-import { ICourse } from '../../types/ICourse';
 import { randomInt } from 'src/app/common/numbers';
 import { Subscription } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CourseAuthors } from 'src/app/types/ICourseAuthors';
 
 @Component({
   selector: 'app-add-update-course',
@@ -14,12 +15,10 @@ import { Subscription } from 'rxjs';
 })
 export class AddUpdateCourseComponent implements OnInit, OnDestroy {
   private courseId: number;
-  public date: string | null = '';
-  public authorsInput: string = '';
-  public authors: Array<any> = [];
+  public authors: CourseAuthors[] | undefined = [];
   public heading: string = 'Add';
   private subscription: Subscription;
-  public course: ICourse;
+  public formGroup: FormGroup;
 
   constructor(
     private router: Router,
@@ -28,14 +27,24 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
     private datePipe: DatePipe,
     private titleCasePipe: TitleCasePipe
   ) {
-    this.course = {
-      id: 0,
-      name: '',
-      date: '',
-      length: 0,
-      description: '',
-      isTopRated: false,
-    };
+    this.formGroup = new FormGroup({
+      name: new FormControl('', [
+        Validators.required,
+        Validators.minLength(3),
+        Validators.maxLength(50),
+      ]),
+      date: new FormControl('', [Validators.required]),
+      length: new FormControl(0, [
+        Validators.required,
+        Validators.pattern(/^[0-9]+$/),
+      ]),
+      description: new FormControl('', [
+        Validators.required,
+        Validators.maxLength(500),
+      ]),
+      authors: new FormControl(''),
+    });
+
     this.courseId = +this.activatedRoute.snapshot.params['id'] || 0;
     this.subscription = new Subscription();
   }
@@ -47,12 +56,14 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
           .getCourseById(this.courseId)
           .subscribe((course) => {
             this.heading = 'Edit';
-            this.course.id = course.id;
-            this.course.name = this.titleCasePipe.transform(course.name);
-            this.course.description = course.description;
-            this.course.length = course.length;
-            this.course.date = course.date;
-            this.date = this.datePipe.transform(course.date, 'yyyy-MM-dd');
+            this.authors = course.authors;
+            this.formGroup.setValue({
+              name: this.titleCasePipe.transform(course.name),
+              date: this.datePipe.transform(course.date, 'yyyy-MM-dd'),
+              length: course.length,
+              description: course.description,
+              authors: '',
+            });
           })
       );
     }
@@ -60,6 +71,35 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
+  }
+
+  public isAuthorsInvalid(): boolean {
+    return this.formGroup.get('authors')?.touched && this.authors!.length < 1
+      ? true
+      : false;
+  }
+
+  public isFieldInvalid(fieldName: string): boolean {
+    return this.formGroup.get(fieldName)?.invalid &&
+      this.formGroup.get(fieldName)?.touched
+      ? true
+      : false;
+  }
+
+  public addAuthor(input: HTMLInputElement) {
+    const userNameArr: string[] = input.value.split(/[ ,]+/);
+    const author: CourseAuthors = {
+      id: randomInt(10000, 15000),
+      firstName: userNameArr[0],
+      lastName: userNameArr[1] || '',
+    };
+    this.authors?.push(author);
+    input.value = '';
+    input.blur();
+  }
+
+  public removeAuthor(id: number): void {
+    this.authors = this.authors?.filter((author) => author.id !== id);
   }
 
   private returnHome(): void {
@@ -71,8 +111,9 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
       this.subscription.add(
         this.coursesDataService
           .updateCourse({
-            ...this.course,
-            date: this.date ? new Date(this.date).toISOString() : '',
+            ...this.formGroup.value,
+            id: this.courseId,
+            authors: this.authors,
           })
           .subscribe(() => this.returnHome())
       );
@@ -80,13 +121,14 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
       this.subscription.add(
         this.coursesDataService
           .createCourse({
-            ...this.course,
+            ...this.formGroup.value,
             id: randomInt(10000, 15000),
-            date: this.date ? new Date(this.date).toISOString() : '',
+            authors: this.authors,
           })
           .subscribe(() => this.returnHome())
       );
     }
+    console.log(this.formGroup.value);
   }
   public close(): void {
     this.returnHome();

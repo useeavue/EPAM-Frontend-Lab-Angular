@@ -3,7 +3,7 @@
   background-color: #fff;
   box-sizing: border-box;
   padding: 40px;
-  height: 600px;
+  height: fit-content;
   width: 1050px;
   position: fixed;
   display: flex;
@@ -23,7 +23,7 @@
     flex-direction: column;
     row-gap: 5px;
 
-    label {
+    .form-label {
       margin-top: 10px;
     }
 
@@ -35,6 +35,10 @@
       border-radius: 5px;
       background-color: inherit;
       padding: 5px;
+    }
+
+    .ng-touched.ng-invalid {
+      border: solid red 2px;
     }
 
     .duration {
@@ -60,6 +64,22 @@
       justify-content: space-between;
       width: 120px;
       margin-top: 20px;
+
+      button {
+        &:disabled {
+          cursor: not-allowed;
+          background-color: #777;
+        }
+      }
+    }
+
+    .formError {
+      color: rgb(161, 9, 9);
+    }
+
+    .authors-container {
+      display: flex;
+      gap: 20px;
     }
   }
 }

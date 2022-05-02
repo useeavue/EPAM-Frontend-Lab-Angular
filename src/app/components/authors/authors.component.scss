@@ -1,0 +1,25 @@
+.author {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  gap: 10px;
+  justify-content: space-between;
+  border: 2px solid rgb(185, 185, 185);
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.author-name {
+  font-size: 12px;
+}
+
+.author-close {
+  border: none;
+  border-radius: 2px;
+  font-size: 12px;
+  cursor: pointer;
+  color: white;
+  background-color: rgb(169, 18, 18);
+  width: 18px;
+  height: 18px;
+}
