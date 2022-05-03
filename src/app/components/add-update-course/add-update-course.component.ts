@@ -70,7 +70,6 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
           })
       );
     }
-    console.log(this.formGroup.get('authors')?.errors);
   }
 
   ngOnDestroy(): void {

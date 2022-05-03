@@ -1,26 +1,39 @@
 <div class="login-window">
   <h1>Login</h1>
-  <form action="" accept-charset="utf-8">
-    <p *ngIf="isError">{{ errorMessage }}</p>
-    <label for="userName">Username:</label>
+  <form
+    accept-charset="utf-8"
+    novalidate
+    [formGroup]="formGroup"
+    (ngSubmit)="logIn()"
+  >
+    <p class="error-message" *ngIf="isError">{{ errorMessage }}</p>
+    <div class="form-label flex-gap-10">
+      <label for="userName">Username:</label>
+      <div class="error-message" *ngIf="isFieldInvalid('userName')">
+        <small>Required field</small>
+      </div>
+    </div>
     <input
-      [(ngModel)]="userNameInput"
+      formControlName="userName"
       type="text"
       id="userName"
       name="userName"
       placeholder="Please enter username"
-      required
     />
-    <label for="userPassword">Password:</label>
+    <div class="form-label flex-gap-10">
+      <label for="userPassword">Password:</label>
+      <div class="error-message" *ngIf="isFieldInvalid('password')">
+        <small>Required field</small>
+      </div>
+    </div>
     <input
-      [(ngModel)]="userPasswordInput"
+      formControlName="password"
       type="text"
       id="userPassword"
       name="userPassword"
       placeholder="Please enter password"
-      required
     />
-    <button class="btn" (click)="logIn(userNameInput, userPasswordInput)">
+    <button class="btn" type="submit" [disabled]="formGroup.invalid">
       Sign in
     </button>
   </form>

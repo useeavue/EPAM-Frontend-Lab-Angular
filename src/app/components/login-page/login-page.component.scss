@@ -3,7 +3,7 @@
   background-color: #fff;
   box-sizing: border-box;
   padding: 40px;
-  height: 400px;
+  height: fit-content;
   width: 600px;
   position: fixed;
   display: flex;
@@ -13,6 +13,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   form {
     margin: 40px 0 0 0;
     width: 400px;
@@ -20,12 +21,19 @@
     display: flex;
     flex-direction: column;
     row-gap: 5px;
-    p {
-      color: rgb(180, 30, 30);
+
+    .error-message {
+      color: rgb(161, 9, 9);
     }
-    label {
+
+    .form-label {
       margin-top: 10px;
     }
+
+    small {
+      font-size: 14px;
+    }
+
     input {
       height: 30px;
       border: 2px solid rgb(185, 185, 185);
@@ -33,6 +41,11 @@
       background-color: inherit;
       padding: 5px;
     }
+
+    .ng-touched.ng-invalid {
+      border: solid red 2px;
+    }
+
     button {
       margin: auto 0 0 0;
     }

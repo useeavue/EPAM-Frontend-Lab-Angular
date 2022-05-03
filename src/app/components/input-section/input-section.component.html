@@ -1,14 +1,14 @@
 <div class="input-section-wrap flex-center">
   <div class="container flex-center-sb search-form">
-    <div class="flex-center-gap-20">
+    <div class="flex-center-gap-20" [formGroup]="formGroup">
       <input
         type="text"
         placeholder="Text to search"
-        [(ngModel)]="inputValue"
-        (keyup)="inputHandler(inputValue)"
+        formControlName="search"
+        (keyup)="inputHandler()"
       />
     </div>
-    <button class="btn" (click)="addCourseHandler()">
+    <button class="btn" type="button" (click)="addCourseHandler()">
       &#x2705; Add course
     </button>
   </div>

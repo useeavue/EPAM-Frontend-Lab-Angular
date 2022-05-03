@@ -33,6 +33,7 @@ import { AuthorsComponent } from './components/authors/authors.component';
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
