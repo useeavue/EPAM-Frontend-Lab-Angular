@@ -33,6 +33,11 @@ app-root {
   border: none;
   transition: background-color 0.3s ease;
 
+  &:disabled {
+    cursor: not-allowed;
+    background-color: #777;
+  }
+
   &:hover {
     background-color: #4184e4;
   }
