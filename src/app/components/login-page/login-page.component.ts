@@ -40,8 +40,10 @@ export class LoginPageComponent implements OnDestroy {
   }
 
   public isFieldInvalid(fieldName: string): boolean {
-    return (this.formGroup.get(fieldName)?.invalid &&
-      this.formGroup.get(fieldName)?.touched) as boolean;
+    return (
+      !!this.formGroup.get(fieldName)?.invalid &&
+      !!this.formGroup.get(fieldName)?.touched
+    );
   }
 
   ngOnDestroy(): void {
