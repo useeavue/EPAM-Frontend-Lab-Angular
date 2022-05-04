@@ -19,8 +19,8 @@ export class LoginPageComponent implements OnDestroy {
     this.subscription = new Subscription();
     this.errorMessage = 'Wrong username or password!';
     this.formGroup = new FormGroup({
-      userName: new FormControl('', [Validators.required]),
-      password: new FormControl('', [Validators.required]),
+      userName: new FormControl('Warner', [Validators.required]),
+      password: new FormControl('ea', [Validators.required]),
     });
   }
 
@@ -40,10 +40,8 @@ export class LoginPageComponent implements OnDestroy {
   }
 
   public isFieldInvalid(fieldName: string): boolean {
-    return this.formGroup.get(fieldName)?.invalid &&
-      this.formGroup.get(fieldName)?.touched
-      ? true
-      : false;
+    return (this.formGroup.get(fieldName)?.invalid &&
+      this.formGroup.get(fieldName)?.touched) as boolean;
   }
 
   ngOnDestroy(): void {
