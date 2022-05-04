@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CourseItemBorderDirective } from 'src/app/directives/course-item-border.directive';
 import { CourseItemComponent } from '../course-item/course-item.component';
@@ -16,6 +16,7 @@ import { BreadcrumbsModule } from '../breadcrumbs/breadcrumbs.module';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     CoursesPageRoutingModule,
     CustomPipesModule,
     BreadcrumbsModule,

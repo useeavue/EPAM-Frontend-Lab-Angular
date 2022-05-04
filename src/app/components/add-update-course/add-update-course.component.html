@@ -1,56 +1,118 @@
 <app-breadcrumbs></app-breadcrumbs>
 <div class="add-update-course-window">
   <h1>{{ heading }} course</h1>
-  <div class="form">
-    <label for="title">Title:</label>
-    <input
-      [(ngModel)]="course.name"
-      type="text"
-      id="title"
-      name="title"
-      required
-    />
-    <label for="description">Description:</label>
+  <form class="form" [formGroup]="formGroup" novalidate (ngSubmit)="save()">
+    <div class="form-label flex-gap-10">
+      <label for="title">Title:</label>
+      <div class="form-error" *ngIf="isFieldInvalid('name')">
+        <small *ngIf="formGroup.get('name')?.errors?.['required']"
+          >Required field</small
+        >
+        <small *ngIf="formGroup.get('name')?.errors?.['minlength']"
+          >Title should be at least 3 characters long</small
+        >
+        <small *ngIf="formGroup.get('name')?.errors?.['maxlength']"
+          >Title should be no more than 50 characters long</small
+        >
+      </div>
+    </div>
+    <input formControlName="name" type="text" id="title" name="title" />
+    <div class="form-label flex-gap-10">
+      <label for="description">Description:</label>
+      <div class="form-error" *ngIf="isFieldInvalid('description')">
+        <small *ngIf="formGroup.get('description')?.errors?.['required']"
+          >Required field</small
+        >
+        <small *ngIf="formGroup.get('description')?.errors?.['maxlength']"
+          >Title should be no more than 500 characters long</small
+        >
+      </div>
+    </div>
     <textarea
-      [(ngModel)]="course.description"
+      formControlName="description"
       class="large description"
       type="text"
       id="description"
       name="description"
-      required
     ></textarea>
-    <label for="date">Date:</label>
+    <div class="form-label flex-gap-10">
+      <label for="date">Date:</label>
+      <div class="form-error" *ngIf="isFieldInvalid('date')">
+        <small *ngIf="formGroup.get('date')?.errors?.['required']"
+          >Required field</small
+        >
+      </div>
+    </div>
     <input
-      [(ngModel)]="date"
+      formControlName="date"
       class="small"
       type="date"
       id="date"
       name="date"
-      required
     />
-    <label for="duration">Duration:</label>
+    <div class="form-label flex-gap-10">
+      <label for="duration">Duration:</label>
+      <div class="form-error" *ngIf="isFieldInvalid('length')">
+        <small *ngIf="formGroup.get('length')?.errors?.['required']"
+          >Required field, only numbers allowed</small
+        >
+      </div>
+    </div>
     <div class="duration">
       <input
-        [(ngModel)]="course.length"
+        #duration
+        formControlName="length"
         class="small"
         type="number"
         id="duration"
         name="duration"
-        required
       />
-      <span>{{ course.length | duration }}</span>
+      <span>{{ +duration.value | duration }}</span>
     </div>
-    <label for="authors">Authors:</label>
-    <input
-      [(ngModel)]="authorsInput"
-      type="text"
-      id="authors"
-      name="authors"
-      required
-    />
+    <div class="form-label flex-gap-10">
+      <label for="authors">Authors:</label>
+      <div class="form-error" *ngIf="isAuthorsInvalid()">
+        <small>Should be at least 1 author</small>
+      </div>
+    </div>
+    <div class="flex-gap-10">
+      <input
+        #authorsInput
+        formControlName="authorsInput"
+        class="small"
+        id="authors"
+        list="authors-dropdown"
+        name="authors"
+      />
+      <button
+        class="btn"
+        type="button"
+        (click)="addAuthor(authorsInput)"
+        [disabled]="!authorsInput.value"
+      >
+        Add
+      </button>
+    </div>
+
+    <datalist id="authors-dropdown">
+      <option *ngFor="let author of authorControls.controls">
+        {{ author.value.firstName + " " + author.value.lastName | titlecase }}
+      </option>
+    </datalist>
+    <div class="authors-container">
+      <app-authors
+        *ngFor="let author of authorControls.controls"
+        [author]="author.value"
+        (removeAuthorEvent)="removeAuthor($event)"
+      ></app-authors>
+    </div>
     <div class="buttons">
-      <button class="btn" (click)="save()">Save</button>
-      <button class="btn btn-red" (click)="close()">Cancel</button>
+      <button class="btn" type="submit" [disabled]="formGroup.invalid">
+        Save
+      </button>
+      <button class="btn btn-red" type="button" (click)="close()">
+        Cancel
+      </button>
     </div>
-  </div>
+  </form>
 </div>
