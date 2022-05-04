@@ -81,13 +81,17 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
   }
 
   public isAuthorsInvalid(): boolean {
-    return (this.formGroup.get('authorsInput')?.touched &&
-      this.formGroup.get('authors')?.invalid) as boolean;
+    return (
+      !!this.formGroup.get('authorsInput')?.touched &&
+      !!this.formGroup.get('authors')?.invalid
+    );
   }
 
   public isFieldInvalid(fieldName: string): boolean {
-    return (this.formGroup.get(fieldName)?.invalid &&
-      this.formGroup.get(fieldName)?.touched) as boolean;
+    return (
+      !!this.formGroup.get(fieldName)?.invalid &&
+      !!this.formGroup.get(fieldName)?.touched
+    );
   }
 
   public addAuthor(input: HTMLInputElement) {
