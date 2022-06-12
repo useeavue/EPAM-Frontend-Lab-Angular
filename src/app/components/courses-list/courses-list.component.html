@@ -14,17 +14,15 @@
       (topRatedClicked)="markTopRated($event)"
     ></app-course-item>
     <button
+      mat-raised-button
       class="load-more"
       (click)="loadMoreHandler()"
       *ngIf="courses.length >= 1"
     >
       LOAD MORE
     </button>
-    <div
-      class="load-more no-data-message flex-center"
-      *ngIf="courses.length < 1"
-    >
+    <mat-card class="no-data-message" *ngIf="courses.length < 1">
       NO DATA. FEEL FREE TO ADD NEW COURSE
-    </div>
+    </mat-card>
   </div>
 </div>

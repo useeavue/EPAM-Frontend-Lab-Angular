@@ -1,15 +1,24 @@
 <div class="input-section-wrap flex-center">
   <div class="container flex-center-sb search-form">
     <div class="flex-center-gap-20" [formGroup]="formGroup">
-      <input
-        type="text"
-        placeholder="Text to search"
-        formControlName="search"
-        (keyup)="inputHandler()"
-      />
+      <mat-form-field appearance="standard">
+        <mat-label>Type to search</mat-label>
+        <input
+          matInput
+          type="text"
+          formControlName="search"
+          (keyup)="inputHandler()"
+        />
+      </mat-form-field>
     </div>
-    <button class="btn" type="button" (click)="addCourseHandler()">
-      &#x2705; Add course
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="addCourseHandler()"
+    >
+      <mat-icon aria-hidden="false">add</mat-icon>
+      Add course
     </button>
   </div>
 </div>

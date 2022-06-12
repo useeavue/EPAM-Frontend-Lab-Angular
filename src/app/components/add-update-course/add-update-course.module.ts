@@ -7,6 +7,16 @@ import { CustomPipesModule } from 'src/app/pipes/custom-pipes.module';
 import { BreadcrumbsModule } from '../breadcrumbs/breadcrumbs.module';
 import { AuthorsComponent } from '../authors/authors.component';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -15,7 +25,17 @@ import { AuthorsComponent } from '../authors/authors.component';
     CustomPipesModule,
     BreadcrumbsModule,
     ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatButtonModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
+  providers: [MatDatepickerModule, MatNativeDateModule],
   declarations: [AddUpdateCourseComponent, AuthorsComponent],
 })
 export class AddUpdateCourseModule {}

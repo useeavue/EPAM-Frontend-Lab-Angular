@@ -1,51 +1,57 @@
 <div class="course-card flex-center">
-  <div
-    class="container flex-center-gap-20 course-card-item"
-    [course-item-border]="course.date"
-  >
-    <div class="content flex-column-gap-20">
-      <div class="content-heading flex-center-sb">
-        <div class="flex-center">
-          <h2 class="content-name">
-            {{ numberOfCourse }} {{ course.name | titlecase }}
-          </h2>
-          <div (click)="topRatedHandle()">
-            <span
-              class="content-top-rated"
-              [ngClass]="{ active: !course.isTopRated }"
-              >&#9734;</span
-            >
-            <span
-              class="content-top-rated"
-              [ngClass]="{ active: course.isTopRated }"
-              >&#9733;</span
-            >
+  <mat-card class="container" [course-item-border]="course.date">
+    <div class="flex-gap-20">
+      <div class="content flex-column-gap-20">
+        <div class="content-heading flex-center-sb">
+          <div class="flex-center">
+            <h2 class="content-name">
+              {{ numberOfCourse }} {{ course.name | titlecase }}
+            </h2>
+            <div (click)="topRatedHandle()">
+              <mat-icon
+                class="content-top-rated"
+                [ngClass]="{ active: !course.isTopRated }"
+                >star_border</mat-icon
+              >
+              <mat-icon
+                class="content-top-rated"
+                [ngClass]="{ active: course.isTopRated }"
+                >star</mat-icon
+              >
+            </div>
+          </div>
+          <div class="content-info flex-center-gap-20">
+            <h2 class="content-duration">
+              {{ course.length | duration }}
+            </h2>
+            <h2 class="content-date">
+              {{ course.date | date: "MM.dd.yyyy" }}
+            </h2>
           </div>
         </div>
-        <div class="content-info flex-center-gap-20">
-          <h2 class="content-duration">
-            {{ course.length | duration }}
-          </h2>
-          <h2 class="content-date">
-            {{ course.date | date: "MM.dd.yyyy" }}
-          </h2>
-        </div>
+        <p class="content-text">
+          {{ course.description }}
+        </p>
       </div>
-      <p class="content-text">
-        {{ course.description }}
-      </p>
+      <div class="btn-container flex-column-gap-20">
+        <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          [routerLink]="['/courses', course.id]"
+          [queryParams]="{ title: course.name }"
+        >
+          <mat-icon>create</mat-icon>
+        </button>
+        <button
+          mat-raised-button
+          type="button"
+          color="warn"
+          (click)="deleteHandler()"
+        >
+          <mat-icon>clear</mat-icon>
+        </button>
+      </div>
     </div>
-    <div class="btn-container flex-column-gap-20">
-      <button
-        class="btn"
-        [routerLink]="['/courses', course.id]"
-        [queryParams]="{ title: course.name }"
-      >
-        &#x2705; Edit
-      </button>
-      <button class="btn btn-red" (click)="deleteHandler()">
-        &#x274E; Delete
-      </button>
-    </div>
-  </div>
+  </mat-card>
 </div>

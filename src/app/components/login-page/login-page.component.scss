@@ -1,7 +1,4 @@
 .login-window {
-  border: 2px solid #777;
-  background-color: #fff;
-  box-sizing: border-box;
   padding: 40px;
   height: fit-content;
   width: 600px;
@@ -13,6 +10,10 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
+  .login-title {
+    font-weight: 700;
+  }
 
   form {
     margin: 40px 0 0 0;
@@ -32,18 +33,6 @@
 
     small {
       font-size: 14px;
-    }
-
-    input {
-      height: 30px;
-      border: 2px solid rgb(185, 185, 185);
-      border-radius: 5px;
-      background-color: inherit;
-      padding: 5px;
-    }
-
-    .ng-touched.ng-invalid {
-      border: solid red 2px;
     }
 
     button {

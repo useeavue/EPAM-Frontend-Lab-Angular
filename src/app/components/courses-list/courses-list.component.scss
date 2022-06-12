@@ -3,10 +3,8 @@
 }
 
 .load-more {
-  border: 2px solid #777;
   text-align: center;
   margin-bottom: 20px;
-  background-color: #fff;
   height: 50px;
   cursor: pointer;
   width: 100%;
@@ -14,5 +12,5 @@
 }
 
 .no-data-message {
-  cursor: default;
+  text-align: center;
 }

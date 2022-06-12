@@ -1,11 +1,13 @@
 import { DatePipe, TitleCasePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesDataService } from 'src/app/services/courses-data.service';
 import { randomInt } from 'src/app/common/numbers';
 import { Subscription } from 'rxjs';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CourseAuthors } from 'src/app/types/ICourseAuthors';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
 
 @Component({
   selector: 'app-add-update-course',
@@ -18,6 +20,7 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
   public heading: string = 'Add';
   private subscription: Subscription;
   public formGroup: FormGroup;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   constructor(
     private router: Router,
@@ -80,11 +83,17 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
     return this.formGroup.get('authors') as FormArray;
   }
 
-  public isAuthorsInvalid(): boolean {
+  private isAuthorsInvalid(): boolean {
     return (
       !!this.formGroup.get('authorsInput')?.touched &&
       !!this.formGroup.get('authors')?.invalid
     );
+  }
+
+  public checkAuthorsState(chipList: MatChipList): void {
+    this.isAuthorsInvalid()
+      ? (chipList.errorState = true)
+      : (chipList.errorState = false);
   }
 
   public isFieldInvalid(fieldName: string): boolean {
@@ -94,16 +103,16 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
     );
   }
 
-  public addAuthor(input: HTMLInputElement) {
-    const userNameArr: string[] = input.value.split(/[ ,]+/);
+  public addAuthor(event: MatChipInputEvent) {
+    if (!event.value) return;
+    const userNameArr: string[] = event.value.split(/[ ,]+/);
     const author: CourseAuthors = {
       id: randomInt(10000, 15000),
       firstName: userNameArr[0],
       lastName: userNameArr[1] || '',
     };
     this.authorControls.push(new FormControl(author));
-    input.value = '';
-    input.blur();
+    event.chipInput!.clear();
   }
 
   public removeAuthor(id: number): void {

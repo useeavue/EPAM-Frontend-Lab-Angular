@@ -2,20 +2,20 @@ h2 {
   font-size: 16px;
 }
 
-button {
-  width: 85px;
-  text-align: center;
+.btn-container {
+  button {
+    display: block;
+  }
 }
 
 .content {
-  min-width: 1155px;
+  width: 100%;
   min-height: 80px;
 }
 
 .course-card-item {
   border: 2px solid #777;
   background-color: #fff;
-  box-sizing: border-box;
   padding: 20px;
 }
 

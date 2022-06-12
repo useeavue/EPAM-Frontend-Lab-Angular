@@ -5,16 +5,12 @@ import {
   HttpRequest,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { finalize, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
-import { SpinnerService } from './spinner.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(
-    private localStorageService: LocalStorageService,
-    private spinnerService: SpinnerService
-  ) {}
+  constructor(private localStorageService: LocalStorageService) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -25,12 +21,6 @@ export class AuthInterceptor implements HttpInterceptor {
       headers: req.headers.set('Authorization', authToken ?? ''),
     });
 
-    this.spinnerService.isLoading.next(true);
-
-    return next.handle(clonedReq).pipe(
-      finalize(() => {
-        this.spinnerService.isLoading.next(false);
-      })
-    );
+    return next.handle(clonedReq);
   }
 }

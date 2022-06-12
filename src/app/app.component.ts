@@ -1,6 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 
-import { debounceTime, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { AuthService } from './services/auth.service';
 import { SpinnerService } from './services/spinner.service';
 
@@ -10,22 +15,19 @@ import { SpinnerService } from './services/spinner.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  public isLoading: boolean = false;
+  // public isLoading: boolean = false;
   private subscription: Subscription;
 
-  constructor(
-    public auth: AuthService,
-    private spinnerService: SpinnerService
-  ) {
+  constructor(public auth: AuthService, public spinnerService: SpinnerService) {
     this.subscription = new Subscription();
   }
 
   ngOnInit(): void {
-    this.subscription = this.spinnerService.isLoading
-      .pipe(debounceTime(50))
-      .subscribe((value) => {
-        this.isLoading = value;
-      });
+    // this.subscription = this.spinnerService.isLoading
+    //   .pipe(debounceTime(50))
+    //   .subscribe((value) => {
+    //     this.isLoading = value;
+    //   });
   }
 
   ngOnDestroy(): void {

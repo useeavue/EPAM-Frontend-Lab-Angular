@@ -12,6 +12,12 @@ import { CoursesPageRoutingModule } from './courses-page-routing.module';
 import { CustomPipesModule } from 'src/app/pipes/custom-pipes.module';
 import { BreadcrumbsModule } from '../breadcrumbs/breadcrumbs.module';
 
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+
 @NgModule({
   imports: [
     CommonModule,
@@ -20,6 +26,11 @@ import { BreadcrumbsModule } from '../breadcrumbs/breadcrumbs.module';
     CoursesPageRoutingModule,
     CustomPipesModule,
     BreadcrumbsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
   ],
   declarations: [
     InputSectionComponent,

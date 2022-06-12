@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Input, OnInit } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
 import * as numbers from '../common/numbers';
 
 @Directive({
@@ -12,7 +12,7 @@ export class CourseItemBorderDirective implements OnInit {
   private currentDate: number = Date.now();
   private fourteenDays: number;
 
-  constructor(private element: ElementRef) {
+  constructor(private element: ElementRef, private renderer2: Renderer2) {
     this.fourteenDays =
       numbers.MILLESECONDS_IN_SECOND *
       numbers.SECONDS_IN_MINUTE *
@@ -43,6 +43,10 @@ export class CourseItemBorderDirective implements OnInit {
   }
 
   private changeBorderColor(color: string) {
-    this.element.nativeElement.style.borderColor = color;
+    this.renderer2.setStyle(
+      this.element.nativeElement,
+      'border',
+      `1px solid ${color}`
+    );
   }
 }
