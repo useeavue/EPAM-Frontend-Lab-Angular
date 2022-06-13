@@ -1,44 +1,38 @@
-import {
-  Component,
-  EventEmitter,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs';
+import { OnDestroyService } from 'src/app/services/on-destroy.service';
 import { SearchService } from 'src/app/services/search.service';
 
 @Component({
   selector: 'app-input-section',
   templateUrl: './input-section.component.html',
   styleUrls: ['./input-section.component.scss'],
+  providers: [OnDestroyService],
 })
-export class InputSectionComponent implements OnInit, OnDestroy {
-  private subscription: Subscription;
+export class InputSectionComponent implements OnInit {
   public formGroup: FormGroup;
 
   @Output()
   public inputValueEvent = new EventEmitter<string>();
 
-  constructor(private router: Router, private searchService: SearchService) {
-    this.subscription = new Subscription();
+  constructor(
+    private router: Router,
+    private searchService: SearchService,
+    private destroy$: OnDestroyService
+  ) {
     this.formGroup = new FormGroup({
       search: new FormControl(''),
     });
   }
 
   ngOnInit(): void {
-    this.subscription.add(
-      this.searchService.searchValue.subscribe((value) => {
+    this.searchService.searchValue
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((value) => {
         this.inputValueEvent.emit(value);
-      })
-    );
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
+      });
   }
 
   public inputHandler(): void {

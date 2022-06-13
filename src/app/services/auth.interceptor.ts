@@ -3,14 +3,22 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
+  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { finalize, Observable, tap } from 'rxjs';
 import { LocalStorageService } from './local-storage.service';
+import { SpinnerService } from './spinner.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
-  constructor(private localStorageService: LocalStorageService) {}
+  private totalRequests: number = 0;
+  private totalResponses: number = 0;
+
+  constructor(
+    private localStorageService: LocalStorageService,
+    private spinnerService: SpinnerService
+  ) {}
 
   intercept(
     req: HttpRequest<any>,
@@ -21,6 +29,22 @@ export class AuthInterceptor implements HttpInterceptor {
       headers: req.headers.set('Authorization', authToken ?? ''),
     });
 
-    return next.handle(clonedReq);
+    this.spinnerService.isLoading$.next(true);
+    this.totalRequests++;
+
+    return next.handle(clonedReq).pipe(
+      tap((res) => {
+        if (res instanceof HttpResponse) {
+          this.totalResponses++;
+        }
+      }),
+      finalize(() => {
+        setTimeout(() => {
+          if (this.totalRequests === this.totalResponses) {
+            this.spinnerService.isLoading$.next(false);
+          }
+        }, 0);
+      })
+    );
   }
 }

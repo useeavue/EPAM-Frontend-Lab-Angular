@@ -1,24 +1,24 @@
 import { DatePipe, TitleCasePipe } from '@angular/common';
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesDataService } from 'src/app/services/courses-data.service';
 import { randomInt } from 'src/app/common/numbers';
-import { Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs';
 import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CourseAuthors } from 'src/app/types/ICourseAuthors';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent, MatChipList } from '@angular/material/chips';
+import { OnDestroyService } from 'src/app/services/on-destroy.service';
 
 @Component({
   selector: 'app-add-update-course',
   templateUrl: './add-update-course.component.html',
   styleUrls: ['./add-update-course.component.scss'],
-  providers: [DatePipe, TitleCasePipe],
+  providers: [DatePipe, TitleCasePipe, OnDestroyService],
 })
-export class AddUpdateCourseComponent implements OnInit, OnDestroy {
+export class AddUpdateCourseComponent implements OnInit {
   private courseId: number;
   public heading: string = 'Add';
-  private subscription: Subscription;
   public formGroup: FormGroup;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
@@ -26,6 +26,7 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private coursesDataService: CoursesDataService,
+    private destroy$: OnDestroyService,
     private datePipe: DatePipe,
     private titleCasePipe: TitleCasePipe
   ) {
@@ -49,34 +50,28 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
     });
 
     this.courseId = +this.activatedRoute.snapshot.params['id'] || 0;
-    this.subscription = new Subscription();
   }
 
   ngOnInit(): void {
     if (this.courseId) {
-      this.subscription.add(
-        this.coursesDataService
-          .getCourseById(this.courseId)
-          .subscribe((course) => {
-            this.heading = 'Edit';
-            this.formGroup.setValue({
-              name: this.titleCasePipe.transform(course.name),
-              date: this.datePipe.transform(course.date, 'yyyy-MM-dd'),
-              length: course.length,
-              description: course.description,
-              authorsInput: '',
-              authors: [],
-            });
-            course.authors?.forEach((author) => {
-              this.authorControls.push(new FormControl(author));
-            });
-          })
-      );
+      this.coursesDataService
+        .getCourseById(this.courseId)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((course) => {
+          this.heading = 'Edit';
+          this.formGroup.setValue({
+            name: this.titleCasePipe.transform(course.name),
+            date: this.datePipe.transform(course.date, 'yyyy-MM-dd'),
+            length: course.length,
+            description: course.description,
+            authorsInput: '',
+            authors: [],
+          });
+          course.authors?.forEach((author) => {
+            this.authorControls.push(new FormControl(author));
+          });
+        });
     }
-  }
-
-  ngOnDestroy(): void {
-    this.subscription.unsubscribe();
   }
 
   get authorControls() {
@@ -129,23 +124,21 @@ export class AddUpdateCourseComponent implements OnInit, OnDestroy {
   public save(): void {
     const { authorsInput, ...course } = this.formGroup.value;
     if (this.courseId) {
-      this.subscription.add(
-        this.coursesDataService
-          .updateCourse({
-            ...course,
-            id: this.courseId,
-          })
-          .subscribe(() => this.returnHome())
-      );
+      this.coursesDataService
+        .updateCourse({
+          ...course,
+          id: this.courseId,
+        })
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => this.returnHome());
     } else {
-      this.subscription.add(
-        this.coursesDataService
-          .createCourse({
-            ...course,
-            id: randomInt(10000, 15000),
-          })
-          .subscribe(() => this.returnHome())
-      );
+      this.coursesDataService
+        .createCourse({
+          ...course,
+          id: randomInt(10000, 15000),
+        })
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(() => this.returnHome());
     }
   }
   public close(): void {

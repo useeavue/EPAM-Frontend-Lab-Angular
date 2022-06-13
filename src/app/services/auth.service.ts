@@ -6,7 +6,6 @@ import { SERVER_URL } from '../common/config';
 import { AuthResponse } from '../types/IAuthResponse';
 import { Observable, Subject, tap } from 'rxjs';
 import { IUser } from '../types/IUser';
-import { SpinnerService } from './spinner.service';
 
 @Injectable()
 export class AuthService {
@@ -16,8 +15,7 @@ export class AuthService {
   constructor(
     private localStorageService: LocalStorageService,
     private router: Router,
-    private http: HttpClient,
-    private spinnerService: SpinnerService
+    private http: HttpClient
   ) {}
 
   public logIn(login: string, password: string): Observable<AuthResponse> {

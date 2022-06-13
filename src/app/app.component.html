@@ -1,6 +1,6 @@
 <app-header></app-header>
-<app-spinner *ngIf="spinnerService.isLoading; else mainContent"></app-spinner>
+<app-spinner [isLoading]="isLoading"></app-spinner>
 <div class="page-body">
-  <ng-template #mainContent><router-outlet></router-outlet></ng-template>
+  <router-outlet></router-outlet>
 </div>
 <app-footer></app-footer>

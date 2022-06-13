@@ -1,3 +1,5 @@
+import { Subject } from 'rxjs';
+
 export class SpinnerService {
-  public isLoading: boolean = false;
+  public isLoading$ = new Subject<boolean>();
 }
