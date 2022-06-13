@@ -33,10 +33,16 @@ export class AuthInterceptor implements HttpInterceptor {
     this.totalRequests++;
 
     return next.handle(clonedReq).pipe(
-      tap((res) => {
-        if (res instanceof HttpResponse) {
-          this.totalResponses++;
-        }
+      tap({
+        next: (res) => {
+          if (res instanceof HttpResponse) {
+            this.totalResponses++;
+          }
+        },
+        error: () => {
+          this.spinnerService.isLoading$.next(false);
+          this.totalRequests = this.totalResponses = 0;
+        },
       }),
       finalize(() => {
         setTimeout(() => {
